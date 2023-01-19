@@ -18,7 +18,9 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 frankJoinEmotes = ['<:chonkfronk:1040418775129927752>', '<:frank3:1040422477433675857>', '<:sneakyfrank:1040419659792515213>', '<:hideyhole:1042217416278692003>', '<:jpeg:1042214971460829326>']
-frankjpegs = ['1UWnFjd.png','2tPmENj.png','NleFkVh.png','sMn93G8.png','1.png','2.png','3.png','4.jpg','5.png','6.jpg','7.png','8.png','9.png','10.png','11.png','12.gif','IMG_3314.png']
+frankjpegs = []
+
+
 
 async def sendButtonPingRoles():
     GeneralAnnouncements=Button(label="General Announcements", style=discord.ButtonStyle.gray, emoji="🔔")
@@ -331,6 +333,7 @@ async def sendDropdownTZRoles():
     view.add_item(select2)
     await client.get_channel(1043016204278829066).send(content='Select the Option for your respective *Time Zone*',embed=discord.Embed(title='Time Zone Help', description='Calculate the amount of hours since Jan 1st 1970\n\n<t:0>', color=discord.Color.green()),view=view)
 
+
 # Activate Bot
 
 class aclient(discord.Client):
@@ -350,21 +353,24 @@ class aclient(discord.Client):
         # print('Bot Presence changed to \"Playing DEBUG MODE\"')
         await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="my stinky poos"))
         print('Bot Presence changed to \"Watching my stinky poos\"')
-
-        try:
-            await client.get_channel(1061732002275016745).purge()
-            await client.get_channel(1061732002275016745).send(embed=discord.Embed(title='Online Status', description='Bitey Frank Online Since <t:'+str(int(time.time()))+':R>', color=discord.Color.green())) 
+        await client.get_channel(1061732002275016745).send(embed=discord.Embed(title='Online Status', description='Bitey Frank Online Since <t:'+str(int(time.time()))+':R>', color=discord.Color.green())) 
+        while True:
+            time.sleep(600)
             await client.get_channel(1043016204278829066).purge()
             await sendButtonPingRoles()
             await sendButtonTonaRoles()
             await sendDropdownTZRoles()
-        except:
-            await client.get_channel(1043016204278829066).send('`Bitey Frank Bot Error Occurred, Please See Console` <t:'+str(int(time.time()))+':R>')
-            raise
+
+
 
 
 client = aclient()
 
+for frankJpeg in os.listdir('/beajpeg-assets'):
+    if frankJpeg.endswith(['jpg','jpeg','png','webp','gif']):
+        frankjpegs.append(frankJpeg)
+    else:
+        client.get_channel('1061732002275016745').send(f'Warning, file \"{frankJpeg}\" is not a supported Frank JPEG')
 
 
 
