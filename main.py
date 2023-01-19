@@ -366,8 +366,8 @@ class aclient(discord.Client):
 
 client = aclient()
 
-for frankJpeg in os.listdir('/beajpeg-assets'):
-    if frankJpeg.endswith(['jpg','jpeg','png','webp','gif']):
+for frankJpeg in os.listdir('beajpeg-assets'):
+    if frankJpeg.endswith(('jpg','jpeg','png','webp','gif')):
         frankjpegs.append(frankJpeg)
     else:
         client.get_channel('1061732002275016745').send(f'Warning, file \"{frankJpeg}\" is not a supported Frank JPEG')
