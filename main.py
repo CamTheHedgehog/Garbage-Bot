@@ -349,18 +349,21 @@ class aclient(discord.Client):
             self.synced=True
             print('Commands Synced')
         print(f'Bot is online')
-        # await client.change_presence(activity=discord.Game(name="DEBUG MODE"))
-        # print('Bot Presence changed to \"Playing DEBUG MODE\"')
-        await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="my stinky poos"))
-        print('Bot Presence changed to \"Watching my stinky poos\"')
-        await client.get_channel(1061732002275016745).send(embed=discord.Embed(title='Online Status', description='Bitey Frank Online Since <t:'+str(int(time.time()))+':R>', color=discord.Color.green())) 
-        while True:
-            time.sleep(600)
-            await client.get_channel(1043016204278829066).purge()
-            await sendButtonPingRoles()
-            await sendButtonTonaRoles()
-            await sendDropdownTZRoles()
+        if 'debug' in os.listdir('./'):
+            await client.change_presence(activity=discord.Game(name="DEBUG MODE"))
+            print('Bot Presence changed to \"Playing DEBUG MODE\"')
+            await client.get_channel(1061732002275016745).send(embed=discord.Embed(title='Online Status', description='Bitey Frank Online Since <t:'+str(int(time.time()))+':R> <@&1065773538281259009>', color=discord.Color.green()))
+        else:
+            await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="my stinky poos"))
+            print('Bot Presence changed to \"Watching my stinky poos\"')
+            await client.get_channel(1061732002275016745).send(embed=discord.Embed(title='Online Status', description='Bitey Frank Online Since <t:'+str(int(time.time()))+':R>', color=discord.Color.green()))
 
+        ### CONTRIBUTERS, If you see this would you be able to make this loop every 10 minutes? ###
+        await client.get_channel(1043016204278829066).purge()
+        await sendButtonPingRoles()
+        await sendButtonTonaRoles()
+        await sendDropdownTZRoles()
+        ###########################################################################################
 
 
 
@@ -368,7 +371,7 @@ client = aclient()
 
 for frankJpeg in os.listdir('beajpeg-assets'):
     if frankJpeg.endswith(('jpg','jpeg','png','webp','gif')):
-        frankjpegs.append(frankJpeg)
+        frankjpegs.append('beajpeg-assets/'+frankJpeg)
     else:
         client.get_channel('1061732002275016745').send(f'Warning, file \"{frankJpeg}\" is not a supported Frank JPEG')
 
