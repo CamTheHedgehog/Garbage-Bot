@@ -4,7 +4,7 @@ import discord
 from discord.ui import Button, View, Select
 import random
 import time
-from discord import app_commands, member, InteractionMessage
+from discord import app_commands, member, InteractionMessage, Interaction
 from discord.ext.commands import has_permissions, MissingPermissions
 from dotenv import load_dotenv
 
@@ -512,33 +512,24 @@ async def self(Interaction:discord.Interaction,messageid:str):
     for user in users:
         if user.startswith('1️⃣') == True:
             onePollers+=1
-        else:
-            if user.startswith('2️⃣') == True:
-                twoPollers+=1
-            else:
-                if user.startswith('3️⃣') == True:
-                    threePollers+=1
-                else:
-                    if user.startswith('4️⃣') == True:
-                        fourPollers+=1
-                    else:
-                        if user.startswith('5️⃣') == True:
-                            fivePollers+=1
-                        else:
-                            if user.startswith('6️⃣') == True:
-                                sixPollers+=1
-                            else:
-                                if user.startswith('7️⃣') == True:
-                                    sevenPollers+=1
-                                else:
-                                    if user.startswith('8️⃣') == True:
-                                        eightPollers+=1
-                                    else:
-                                        if user.startswith('9️⃣') == True:
-                                            ninePollers+=1
-                                        else:
-                                            if user.startswith('🔟') == True:
-                                                tenPollers+=1
+        elif user.startswith('2️⃣') == True:
+            twoPollers+=1
+        elif user.startswith('3️⃣') == True:
+            threePollers+=1
+        elif user.startswith('4️⃣') == True:
+            fourPollers+=1
+        elif user.startswith('5️⃣') == True:
+            fivePollers+=1
+        elif user.startswith('6️⃣') == True:
+            sixPollers+=1
+        elif user.startswith('7️⃣') == True:
+            sevenPollers+=1
+        elif user.startswith('8️⃣') == True:
+            eightPollers+=1
+        elif user.startswith('9️⃣') == True:
+            ninePollers+=1
+        elif user.startswith('🔟') == True:
+            tenPollers+=1
 
 
 
