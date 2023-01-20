@@ -458,9 +458,8 @@ tree = app_commands.CommandTree(client)
     description="Make frank be a .jpeg",
     guild=discord.Object(id=1030635475528056872)
     )
-
 async def self(Interaction:discord.Interaction):
-    await Interaction.response.send_message(file=discord.File(random.choice(frankjpegs)[15:]))
+    await Interaction.response.send_message(file=discord.File(random.choice(frankjpegs)))
     print('Ran /beajpeg')
 
 @tree.command(
@@ -468,7 +467,6 @@ async def self(Interaction:discord.Interaction):
     description=f'Choose a specific frank .jpeg (out of 0 to {str(len(frankjpegs)-1)})',
     guild=discord.Object(id=1030635475528056872)
     )
-
 async def self(Interaction:discord.Interaction, option: int):
     await Interaction.response.send_message(file=discord.File(frankjpegs[option]))
     print('Ran /frankjpeg')
@@ -478,12 +476,11 @@ async def self(Interaction:discord.Interaction, option: int):
     description='List the Frank .jpegs',
     guild=discord.Object(id=1030635475528056872)
     )
-
 async def self(Interaction:discord.Interaction):
     message='Frank jpegs:'
     id=0
     for jpegName in frankjpegs:
-        message+=f'\n*{str(id)}*: **__{jpegName}__**'
+        message+=f'\n*{str(id)}*: **__{jpegName[15:]}__**'
         id+=1
     await Interaction.response.send_message(message)
     print('Ran /listfrankjpegs')
@@ -495,7 +492,6 @@ async def self(Interaction:discord.Interaction):
     name='poll',
     description='Make a poll',
     guild=discord.Object(id=1030635475528056872))
-
 async def embed(Interaction:discord.Interaction, question:str, option1: str, option2: str, option3: str=None, option4: str=None, option5: str=None, option6: str=None, option7: str=None, option8: str=None, option9: str=None, option10: str=None):
     await Interaction.response.send_message('Creating Poll',ephemeral=True)
     description='1️⃣ '+option1+'\n\n2️⃣ '+option2
@@ -551,7 +547,6 @@ async def embed(Interaction:discord.Interaction, question:str, option1: str, opt
     name='whoreacted',
     description='Get a list of who reacted using what',
     guild=discord.Object(id=1030635475528056872))
-
 async def self(Interaction:discord.Interaction, messageid:str, poll:bool):
     await Interaction.response.send_message('Gathering...')
     channel=Interaction.channel
@@ -584,7 +579,6 @@ async def self(Interaction:discord.Interaction, messageid:str, poll:bool):
     description='Get a tally of a poll',
     guild=discord.Object(id=1030635475528056872)
     )
-
 async def self(Interaction:discord.Interaction,messageid:str):
     await Interaction.response.send_message('Calculating...')
     message=await Interaction.channel.fetch_message(int(messageid))
@@ -702,7 +696,6 @@ async def self(Interaction:discord.Interaction,messageid:str):
     description='who won?',
     guild=discord.Object(id=1030635475528056872)
 )
-
 async def self(Interaction:discord.Interaction,magicdiepollid:str,doublenothingpollid:str,magicnumberasemoji:str,doublenumberasemoji:str):
     await Interaction.response.send_message('Gathering...')
     channel=Interaction.channel
