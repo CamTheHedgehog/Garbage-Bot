@@ -23,109 +23,65 @@ frankjpegs = []
 
 
 async def sendButtonPingRoles():
-    GeneralAnnouncements=Button(label="General Announcements", style=discord.ButtonStyle.gray, emoji="🔔")
-    DankPods=Button(label="DankPods", style=discord.ButtonStyle.gray, emoji="<:dankpods:1040417450686173184>")
-    GarbageTime=Button(label="Garbage Time", style=discord.ButtonStyle.gray, emoji="<:tony:1040419706399625266>")
-    MornGarbageStream=Button(label="Garbage Stream (Morn)", style=discord.ButtonStyle.gray, emoji="<:chonkfronk:1040418775129927752>")
-    ArvoGarbageStream=Button(label="Garbage Stream (Arvo)", style=discord.ButtonStyle.gray, emoji="<:shrek:1040482904414879826>")
-    TheDrumThing=Button(label="The Drum Thing", style=discord.ButtonStyle.gray, emoji="<:drumthing:1041177501604515960>")
-    Polls=Button(label="Polls", style=discord.ButtonStyle.gray, emoji="📊")
+    roles = [
+        {
+            "name": "General Announcements",
+            "emoji": "🔔",
+            "role": 1043020516346302504,
+        },
+        {
+            "name": "DankPods",
+            "emoji": "<:dankpods:1040417450686173184>",
+            "role": 1043016550103384064,
+        }
+        {
+            "name": "Garbage Time",
+            "emoji": "<:tony:1040419706399625266>",
+            "role": 1043016644412317776,
+        },
+        {
+            "name": "Garbage Stream (Morn)",
+            "emoji": "<:chonkfronk:1040418775129927752>",
+            "role": 1043016713677053982,
+        },
+        {
+            "name": "Garbage Stream (Arvo)",
+            "emoji": "<:shrek:1040482904414879826>",
+            "role": 1043020552878702612,
+        },
+        {
+            "name": "The Drum Thing",
+            "emoji": "<:drumthing:1041177501604515960>",
+            "role": 1043016786100101240,
+        },
+        {
+            "name": "Polls",
+            "emoji": "📊",
+            "role": 1044037090066833508,
+        },
+    ]
 
-# General Announcement Ping (1043020516346302504)
-    async def GeneralAnnouncementsCallback(button_info):
-        role = client.get_guild(1030635475528056872).get_role(1043020516346302504)
-        member = client.get_guild(1030635475528056872).get_member(button_info.user.id)
+    def generate_callback(role):
+        """Generate callback for button presses"""
+        async def callback(button_info):
+            role = client.get_guild(1030635475528056872).get_role(role["role"])
+            member = client.get_guild(1030635475528056872).get_member(button_info.user.id)
 
-        if role.members.__contains__(member):
-            await member.remove_roles(role)
-            await button_info.response.send_message("Removed \"General Announcement Ping\" Role", ephemeral=True)
-        else:
-            await member.add_roles(role)
-            await button_info.response.send_message("You have been given the \"General Announcement Ping\" Role", ephemeral=True)
-# DankPods Ping (1043016550103384064)
-    async def DankPodsCallback(button_info):
-        role = client.get_guild(1030635475528056872).get_role(1043016550103384064)
-        member = client.get_guild(1030635475528056872).get_member(button_info.user.id)
-
-        if role.members.__contains__(member):
-            await member.remove_roles(role)
-            await button_info.response.send_message("Removed \"DankPods Ping\" Role", ephemeral=True)
-        else:
-            await member.add_roles(role)
-            await button_info.response.send_message("You have been given the \"DankPods Ping\" Role", ephemeral=True)
-# Garbage Time Ping (1043016644412317776)
-    async def GarbageTimeCallback(button_info):
-        role = client.get_guild(1030635475528056872).get_role(1043016644412317776)
-        member = client.get_guild(1030635475528056872).get_member(button_info.user.id)
-
-        if role.members.__contains__(member):
-            await member.remove_roles(role)
-            await button_info.response.send_message("Removed \"Garbage Time Ping\" Role", ephemeral=True)
-        else:
-            await member.add_roles(role)
-            await button_info.response.send_message("You have been given the \"Garbage Time Ping\" Role", ephemeral=True)
-# Garbage Stream Morn Ping (1043016713677053982)
-    async def MornGarbageStreamCallback(button_info):
-        role = client.get_guild(1030635475528056872).get_role(1043016713677053982)
-        member = client.get_guild(1030635475528056872).get_member(button_info.user.id)
-
-        if role.members.__contains__(member):
-            await member.remove_roles(role)
-            await button_info.response.send_message("Removed \"Garbage Stream Morn Ping\" Role", ephemeral=True)
-        else:
-            await member.add_roles(role)
-            await button_info.response.send_message("You have been given the \"Garbage Stream Morn Ping\" Role", ephemeral=True)
-# Garbage Stream Arvo Ping (1043020552878702612)
-    async def ArvoGarbageStreamCallback(button_info):
-        role = client.get_guild(1030635475528056872).get_role(1043020552878702612)
-        member = client.get_guild(1030635475528056872).get_member(button_info.user.id)
-
-        if role.members.__contains__(member):
-            await member.remove_roles(role)
-            await button_info.response.send_message("Removed \"Garbage Stream Arvo Ping\" Role", ephemeral=True)
-        else:
-            await member.add_roles(role)
-            await button_info.response.send_message("You have been given the \"Garbage Stream Arvo Ping\" Role", ephemeral=True)
-# The Drum Thing Ping (1043016786100101240)
-    async def TheDrumThingCallback(button_info):
-        role = client.get_guild(1030635475528056872).get_role(1043016786100101240)
-        member = client.get_guild(1030635475528056872).get_member(button_info.user.id)
-
-        if role.members.__contains__(member):
-            await member.remove_roles(role)
-            await button_info.response.send_message("Removed \"The Drum Thing Ping\" Role", ephemeral=True)
-        else:
-            await member.add_roles(role)
-            await button_info.response.send_message("You have been given the \"The Drum Thing Ping\" Role", ephemeral=True)
-# Poll Ping (1044037090066833508)
-    async def PollsCallback(button_info):
-        role = client.get_guild(1030635475528056872).get_role(1044037090066833508)
-        member = client.get_guild(1030635475528056872).get_member(button_info.user.id)
-
-        if role.members.__contains__(member):
-            await member.remove_roles(role)
-            await button_info.response.send_message("Removed \"Poll Ping\" Role", ephemeral=True)
-        else:
-            await member.add_roles(role)
-            await button_info.response.send_message("You have been given the \"Poll Ping\" Role", ephemeral=True)
-
-    GeneralAnnouncements.callback=GeneralAnnouncementsCallback
-    DankPods.callback=DankPodsCallback
-    GarbageTime.callback=GarbageTimeCallback
-    MornGarbageStream.callback=MornGarbageStreamCallback
-    ArvoGarbageStream.callback=ArvoGarbageStreamCallback
-    TheDrumThing.callback=TheDrumThingCallback
-    Polls.callback=PollsCallback
-
+            if member in role.members:
+                await member.remove_roles(role)
+                await button_info.response.send_message(f'Removed "{role["name"]}" Role', ephemeral=True)
+            else:
+                await member.add_roles(role)
+                await button_info.response.send_message(role["response"], ephemeral=True)
+        return callback
 
     view=View()
-    view.add_item(GeneralAnnouncements)
-    view.add_item(DankPods)
-    view.add_item(GarbageTime)
-    view.add_item(MornGarbageStream)
-    view.add_item(ArvoGarbageStream)
-    view.add_item(TheDrumThing)
-    view.add_item(Polls)
+
+    for role in roles:
+        butt = Button(label=role["name"], style=discord.ButtonStyle.gray, emoji=role["emoji"])
+        butt.callback = generate_callback(role)
+        view.add_item(butt)
+
     await client.get_channel(1043016204278829066).send('Click a button to choose various *Ping Roles*', view=view)
 
 
