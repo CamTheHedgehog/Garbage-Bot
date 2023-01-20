@@ -138,16 +138,19 @@ async def sendButtonTonaRoles():
             "name": "OG Tona",
             "emoji": "<:tonatime:1040858187592642622>",
             "role": 1043018409560002580,
+            "response": "DAYTONNNAAAAAAAAAAAA",
         },
         {
             "name": "Sky Hihi",
             "emoji": "☁️",
             "role": 1043018486823272448,
+            "response": "I sadly haven't heard this one, so idk what to put here",
         },
         {
             "name": "Rollo Finito",
             "emoji": "🏁",
             "role": 1043018524324540478,
+            "response": "ROLLLLLING FRAAAANNNNNKKKKKK",
         },
     ]
 
@@ -162,7 +165,7 @@ async def sendButtonTonaRoles():
                 await button_info.response.send_message(f'Removed "{tona["name"]}" Role', ephemeral=True)
             else:
                 await member.add_roles(role)
-                await button_info.response.send_message(f'You have been given "{tona["name"]}" Role', ephemeral=True)
+                await button_info.response.send_message(tona["response"], ephemeral=True)
         return callback
 
     view=View()
