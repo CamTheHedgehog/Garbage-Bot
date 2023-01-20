@@ -127,56 +127,54 @@ async def sendButtonPingRoles():
     view.add_item(TheDrumThing)
     view.add_item(Polls)
     await client.get_channel(1043016204278829066).send('Click a button to choose various *Ping Roles*', view=view)
+
+
 async def sendButtonTonaRoles():
-    OGTona=Button(label="OG Tona", style=discord.ButtonStyle.gray, emoji="<:tonatime:1040858187592642622>")
-    SkyHihi=Button(label="Sky Hihi", style=discord.ButtonStyle.gray, emoji="☁️")
-    RolloFinito=Button(label="Rollo Finito", style=discord.ButtonStyle.gray, emoji="🏁")
+    """
+    Allow users to add or remove the various Tona roles
+    """
+    the_tonas = [
+        {
+            "name": "OG Tona",
+            "emoji": "<:tonatime:1040858187592642622>",
+            "role": 1043018409560002580,
+        },
+        {
+            "name": "Sky Hihi",
+            "emoji": "☁️",
+            "role": 1043018486823272448,
+        },
+        {
+            "name": "Rollo Finito",
+            "emoji": "🏁",
+            "role": 1043018524324540478,
+        },
+    ]
 
-# OG Tona (1043018409560002580)
-    async def OGTonaCallback(button_info):
-        role = client.get_guild(1030635475528056872).get_role(1043018409560002580)
-        member = client.get_guild(1030635475528056872).get_member(button_info.user.id)
+    def generate_tona_callback(tona):
+        """Generate callback for button presses"""
+        async def callback(button_info):
+            role = client.get_guild(1030635475528056872).get_role(tona["role"])
+            member = client.get_guild(1030635475528056872).get_member(button_info.user.id)
 
-        if role.members.__contains__(member):
-            await member.remove_roles(role)
-            await button_info.response.send_message("Removed \"OG Tona\" Role", ephemeral=True)
-        else:
-            await member.add_roles(role)
-            await button_info.response.send_message("You have been given the \"OG Tona\" Role", ephemeral=True)
-# Sky Hihi (1043018486823272448)
-    async def SkyHihiCallback(button_info):
-        role = client.get_guild(1030635475528056872).get_role(1043018486823272448)
-        member = client.get_guild(1030635475528056872).get_member(button_info.user.id)
-
-        if role.members.__contains__(member):
-            await member.remove_roles(role)
-            await button_info.response.send_message("Removed \"Sky Hihi\" Role", ephemeral=True)
-        else:
-            await member.add_roles(role)
-            await button_info.response.send_message("You have been given the \"Sky Hihi\" Role", ephemeral=True)
-# Rollo Finito (1043018524324540478)
-    async def RolloFinitoCallback(button_info):
-        role = client.get_guild(1030635475528056872).get_role(1043018524324540478)
-        member = client.get_guild(1030635475528056872).get_member(button_info.user.id)
-
-        if role.members.__contains__(member):
-            await member.remove_roles(role)
-            await button_info.response.send_message("Removed \"Rollo Finito\" Role", ephemeral=True)
-        else:
-            await member.add_roles(role)
-            await button_info.response.send_message("You have been given the \"Rollo Finito\" Role", ephemeral=True)
-
-    OGTona.callback=OGTonaCallback
-    SkyHihi.callback=SkyHihiCallback
-    RolloFinito.callback=RolloFinitoCallback
-
+            if member in role.members:
+                await member.remove_roles(role)
+                await button_info.response.send_message(f'Removed "{tona["name"]}" Role', ephemeral=True)
+            else:
+                await member.add_roles(role)
+                await button_info.response.send_message(f'You have been given "{tona["name"]}" Role', ephemeral=True)
+        return callback
 
     view=View()
-    view.add_item(OGTona)
-    view.add_item(SkyHihi)
-    view.add_item(RolloFinito)
+
+    for tona in the_tonas:
+        butt = Button(label=tona["name"], style=discord.ButtonStyle.gray, emoji=tona["emoji"])
+        butt.callback = generate_tona_callback(tona)
+        view.add_item(butt)
 
     await client.get_channel(1043016204278829066).send('Click a button to choose various *Tona Roles*', view=view)
+
+
 async def sendDropdownTZRoles():
     select = Select(options=[
         discord.SelectOption(label="GMT-12:00", emoji="🕛"),
