@@ -1,3 +1,4 @@
 /.env
+/.venv
 /Garbage Bot.code-workspace
 debug
