@@ -301,19 +301,18 @@ for frankJpeg in os.listdir('beajpeg-assets'):
         client.get_channel('1061732002275016745').send(f'Warning, file \"{frankJpeg}\" is not a supported Frank JPEG')
 
 
-
-# Welcome users
-
 @client.event
 async def on_member_join(member):
+    """Welcome users"""
     await client.get_channel(1030635476245286978).send(random.choice(frankJoinEmotes))
-    print('Greeted '+str(member))
-# Say goodbye to users
+    print(f'Greeted {member}')
+
 
 @client.event
 async def on_member_remove(member):
+    """Say goodbye to users"""
     await client.get_channel(1030635476245286978).send(f"{member.mention} <:frank:1040418489476853872>7")
-    print('Said goodbye to '+str(member))
+    print(f'Said goodbye to {member}')
 
 
 #Commands
