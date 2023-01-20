@@ -564,7 +564,7 @@ async def self(Interaction:discord.Interaction, messageid:str, poll:bool):
     result=''
     for user in users:
         if poll==True:
-            if user.endswith('DogmaBot#5481') == False:
+            if user.endswith('Bitey Frank#4533') == False:
 
                 result+=user+'\n'
         else:
@@ -597,8 +597,7 @@ async def self(Interaction:discord.Interaction,messageid:str):
     users.sort()
     totalPollers=len(users)
     for user in users:
-        print(user)
-        if user.endswith('DogmaBot#5481'):
+        if user.endswith('Bitey Frank#4533'):
             totalPollers-=1
     onePollers=-1
     twoPollers=-1
