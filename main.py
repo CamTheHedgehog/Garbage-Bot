@@ -697,4 +697,55 @@ async def self(Interaction:discord.Interaction,messageid:str):
                 icon_url=Interaction.user.avatar
             ))
 
+@tree.command(
+    name='whowon',
+    description='who won?',
+    guild=discord.Object(id=1030635475528056872)
+)
+
+async def self(Interaction:discord.Interaction,magicdiepollid:str,doublenothingpollid:str,magicnumberasemoji:str,doublenumberasemoji:str):
+    await Interaction.response.send_message('Gathering...')
+    channel=Interaction.channel
+    message=await Interaction.channel.fetch_message(int(magicdiepollid))
+    Magicusers=list()
+    for msgreaction in message.reactions:
+        async for user in msgreaction.users():
+            Magicusers.append(f'{str(msgreaction)} {str(user)}')
+    Magicusers.sort()
+    result=''
+    for user in Magicusers:
+            if user.endswith('Bitey Frank#4533') == False:
+                if user.startswith(magicnumberasemoji):
+                    result+=user+'\n'
+
+    await channel.send(embed=discord.Embed(
+        title='Who Won?',
+        description=result,
+        color=discord.Color.green()
+        ).set_author(
+            name=Interaction.user.name,
+            icon_url=Interaction.user.avatar))
+
+    message=await Interaction.channel.fetch_message(int(doublenothingpollid))
+    Doubleusers=list()
+    for msgreaction in message.reactions:
+        async for user in msgreaction.users():
+            Doubleusers.append(f'{str(msgreaction)} {str(user)}')
+    Doubleusers.sort()
+    result=''
+    for user in Doubleusers:
+            if user.endswith('Bitey Frank#4533') == False:
+                if user.startswith(doublenumberasemoji):
+                    result+=user+'\n'
+
+    await channel.send(embed=discord.Embed(
+        title='Who Won? (double)',
+        description=result,
+        color=discord.Color.green()
+        ).set_author(
+            name=Interaction.user.name,
+            icon_url=Interaction.user.avatar))
+
+    
+
 client.run(TOKEN)
