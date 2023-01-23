@@ -748,7 +748,6 @@ async def self(Interaction:discord.Interaction,magicdiepollid:str,doublenothingp
 )
 async def self(Interaction:discord.Interaction):
     await Interaction.response.send_message("Rebooting...")
-    subprocess.call(['sh','../UpdateBot.sh'])
     sys.exit()
     
 
