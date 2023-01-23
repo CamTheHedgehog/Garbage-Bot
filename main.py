@@ -5,6 +5,8 @@ import random
 import time
 from discord import app_commands
 from dotenv import load_dotenv
+import subprocess
+import sys
 
 
 intents = discord.Intents.default()
@@ -739,6 +741,15 @@ async def self(Interaction:discord.Interaction,magicdiepollid:str,doublenothingp
             name=Interaction.user.name,
             icon_url=Interaction.user.avatar))
 
+@tree.command(
+    name="reboot",
+    description="Admin Only Command: Reboot Bitey Frank",
+    guild=discord.Object(id=1030635475528056872)
+)
+async def self(Interaction:discord.Interaction):
+    await Interaction.response.send_message("Rebooting...")
+    subprocess.call(['sh','../UpdateBot.sh'])
+    sys.exit()
     
 
 client.run(TOKEN)
