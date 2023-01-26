@@ -4,92 +4,59 @@ from discord.ui import Button, View
 import random
 import time
 from discord import app_commands
-from dotenv import load_dotenv
 import sys
+import consts
+from role_management import RoleInfo, send_roles_callback
 
 
 intents = discord.Intents.default()
 intents.members = True
 
-# Load important things
-
-load_dotenv()
-TOKEN = os.getenv('DISCORD_TOKEN')
-GUILD = int(os.getenv('DISCORD_GUILD'))
 
 # Definitions
-frankJoinEmotes = [
-    '<:chonkfronk:1040418775129927752>',
-    '<:frank3:1040422477433675857>',
-    '<:sneakyfrank:1040419659792515213>',
-    '<:hideyhole:1042217416278692003>',
-    '<:jpeg:1042214971460829326>'
-]
 frankjpegs = []
 
 
 async def sendButtonPingRoles():
     roles = [
-        {
-            "name": "General Announcements",
-            "emoji": "🔔",
-            "role": 1043020516346302504,
-        },
-        {
-            "name": "DankPods",
-            "emoji": "<:dankpods:1040417450686173184>",
-            "role": 1043016550103384064,
-        }
-        {
-            "name": "Garbage Time",
-            "emoji": "<:tony:1040419706399625266>",
-            "role": 1043016644412317776,
-        },
-        {
-            "name": "Garbage Stream (Morn)",
-            "emoji": "<:chonkfronk:1040418775129927752>",
-            "role": 1043016713677053982,
-        },
-        {
-            "name": "Garbage Stream (Arvo)",
-            "emoji": "<:shrek:1040482904414879826>",
-            "role": 1043020552878702612,
-        },
-        {
-            "name": "The Drum Thing",
-            "emoji": "<:drumthing:1041177501604515960>",
-            "role": 1043016786100101240,
-        },
-        {
-            "name": "Polls",
-            "emoji": "📊",
-            "role": 1044037090066833508,
-        },
+        RoleInfo(
+            "General Announcements",
+            "🔔",
+            1043020516346302504,
+        ),
+        RoleInfo(
+            "DankPods",
+            "<:dankpods:1040417450686173184>",
+            1043016550103384064,
+        ),
+        RoleInfo(
+            "Garbage Time",
+            "<:tony:1040419706399625266>",
+            1043016644412317776,
+        ),
+        RoleInfo(
+            "Garbage Stream (Morn)",
+            "<:chonkfronk:1040418775129927752>",
+            1043016713677053982,
+        ),
+        RoleInfo(
+            "Garbage Stream (Arvo)",
+            "<:shrek:1040482904414879826>",
+            1043020552878702612,
+        ),
+        RoleInfo(
+            "The Drum Thing",
+            "<:drumthing:1041177501604515960>",
+            1043016786100101240,
+        ),
+        RoleInfo(
+            "Polls",
+            "📊",
+            1044037090066833508,
+        ),
     ]
 
-    def generate_callback(role):
-        """Generate callback for button presses"""
-        async def callback(button_info):
-            role = client.get_guild(GUILD).get_role(role["role"])
-            member = client.get_guild(GUILD).get_member(button_info.user.id)
-
-            if member in role.members:
-                await member.remove_roles(role)
-                await button_info.response.send_message(f'Removed "{role["name"]}" Role', ephemeral=True)
-            else:
-                await member.add_roles(role)
-                await button_info.response.send_message(role["response"], ephemeral=True)
-        return callback
-
-    view = View()
-
-    for role in roles:
-        butt = Button(
-            label=role["name"], style=discord.ButtonStyle.gray, emoji=role["emoji"])
-        butt.callback = generate_callback(role)
-        view.add_item(butt)
-
-    await client.get_channel(1043016204278829066).send('Click a button to choose various *Ping Roles*', view=view)
+    await send_roles_callback(client, roles, "Ping Roles")
 
 
 async def sendButtonTonaRoles():
@@ -97,49 +64,27 @@ async def sendButtonTonaRoles():
     Allow users to add or remove the various Tona roles
     """
     the_tonas = [
-        {
-            "name": "OG Tona",
-            "emoji": "<:tonatime:1040858187592642622>",
-            "role": 1043018409560002580,
-            "response": "DAYTONNNAAAAAAAAAAAA",
-        },
-        {
-            "name": "Sky Hihi",
-            "emoji": "☁️",
-            "role": 1043018486823272448,
-            "response": "I sadly haven't heard this one, so idk what to put here",
-        },
-        {
-            "name": "Rollo Finito",
-            "emoji": "🏁",
-            "role": 1043018524324540478,
-            "response": "ROLLLLLING FRAAAANNNNNKKKKKK",
-        },
+        RoleInfo(
+            "OG Tona",
+            "<:tonatime:1040858187592642622>",
+            1043018409560002580,
+            give_message="DAYTONNNAAAAAAAAAAAA",
+        ),
+        RoleInfo(
+            "Sky Hihi",
+            "☁️",
+            1043018486823272448,
+            give_message="I haven't heard this one yet, so idk what to put here",
+        ),
+        RoleInfo(
+            "Rollo Finito",
+            "🏁",
+            1043018524324540478,
+            give_message="ROLLLLLING FRAAAANNNNNKKKKKK",
+        ),
     ]
 
-    def generate_tona_callback(tona):
-        """Generate callback for button presses"""
-        async def callback(button_info):
-            role = client.get_guild(GUILD).get_role(tona["role"])
-            member = client.get_guild(GUILD).get_member(button_info.user.id)
-
-            if member in role.members:
-                await member.remove_roles(role)
-                await button_info.response.send_message(f'Removed "{tona["name"]}" Role', ephemeral=True)
-            else:
-                await member.add_roles(role)
-                await button_info.response.send_message(tona["response"], ephemeral=True)
-        return callback
-
-    view = View()
-
-    for tona in the_tonas:
-        butt = Button(
-            label=tona["name"], style=discord.ButtonStyle.gray, emoji=tona["emoji"])
-        butt.callback = generate_tona_callback(tona)
-        view.add_item(butt)
-
-    await client.get_channel(1043016204278829066).send('Click a button to choose various *Tona Roles*', view=view)
+    await send_roles_callback(client, the_tonas, "Tona Roles")
 
 
 # async def sendDropdownTZRoles():
