@@ -14,7 +14,7 @@ intents.members = True
 
 
 # Definitions
-frankjpegs = []
+frank_jpegs = []
 
 
 async def sendButtonPingRoles():
@@ -256,7 +256,7 @@ client = aclient()
 
 for frankJpeg in os.listdir('beajpeg-assets'):
     if frankJpeg.endswith(('jpg', 'jpeg', 'png', 'webp', 'gif')):
-        frankjpegs.append(f'beajpeg-assets/{frankJpeg}')
+        frank_jpegs.append(f'beajpeg-assets/{frankJpeg}')
     else:
         client.get_channel(
             '1061732002275016745'
@@ -290,17 +290,17 @@ tree = app_commands.CommandTree(client)
     guild=discord.Object(id=consts.GUILD)
 )
 async def self(Interaction: discord.Interaction):
-    await Interaction.response.send_message(file=discord.File(random.choice(frankjpegs)))
+    await Interaction.response.send_message(file=discord.File(random.choice(frank_jpegs)))
     print('Ran /beajpeg')
 
 
 @tree.command(
     name='frankjpeg',
-    description=f'Choose a specific frank .jpeg (out of 0 to {str(len(frankjpegs)-1)})',
+    description=f'Choose a specific frank .jpeg (out of 0 to {str(len(frank_jpegs)-1)})',
     guild=discord.Object(id=consts.GUILD)
 )
 async def self(Interaction: discord.Interaction, option: int):
-    await Interaction.response.send_message(file=discord.File(frankjpegs[option]))
+    await Interaction.response.send_message(file=discord.File(frank_jpegs[option]))
     print('Ran /frankjpeg')
 
 
@@ -312,7 +312,7 @@ async def self(Interaction: discord.Interaction, option: int):
 async def self(Interaction: discord.Interaction):
     message = 'Frank jpegs:'
     id = 0
-    for jpegName in frankjpegs:
+    for jpegName in frank_jpegs:
         message += f'\n*{str(id)}*: **__{jpegName[15:]}__**'
         id += 1
     await Interaction.response.send_message(message)
