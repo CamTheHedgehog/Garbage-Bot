@@ -6,7 +6,7 @@ import os
 
 load_dotenv()
 TOKEN: str = os.getenv('DISCORD_TOKEN')  # type: ignore
-GUILD = int(os.getenv('DISCORD_GUILD'))  # type: ignore
+GUILD: str = os.getenv('DISCORD_GUILD')  # type: ignore
 BOT_NAME = 'Bitey Frank#4533'
 
 FRANK_JOIN_EMOTES = [
