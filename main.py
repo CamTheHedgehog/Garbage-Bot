@@ -150,7 +150,7 @@ async def sendButtonPingRoles():
     TheDrumThing.callback=TheDrumThingCallback
     Polls.callback=PollsCallback
         
-    view=View()
+    view=View(timeout=None)
     view.add_item(GeneralAnnouncements)
     view.add_item(DankPods)
     view.add_item(GarbageTime)
@@ -214,7 +214,7 @@ async def sendButtonTonaRoles():
     SkyHihi.callback=SkyHihiCallback
     RolloFinito.callback=RolloFinitoCallback
     
-    view=View()
+    view=View(timeout=None)
     view.add_item(OGTona)
     view.add_item(SkyHihi)
     view.add_item(RolloFinito)
