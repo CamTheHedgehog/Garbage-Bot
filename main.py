@@ -129,73 +129,73 @@ async def sendButtonTonaRoles():
 #     async def timezoneCallback(interaction):
 #         if select.values == True:
 #             if select.values[0] == "GMT-12:00":
-#                 role = client.get_guild(GUILD).get_role(1045189927954026537)
+#                 role = client.get_guild(consts.GUILD).get_role(1045189927954026537)
 #             elif select.values[0] == "GMT-11:00":
-#                 role = client.get_guild(GUILD).get_role(1045189924883808278)
+#                 role = client.get_guild(consts.GUILD).get_role(1045189924883808278)
 #             elif select.values[0] == "GMT-10:00":
-#                 role = client.get_guild(GUILD).get_role(1045189921905848320)
+#                 role = client.get_guild(consts.GUILD).get_role(1045189921905848320)
 #             elif select.values[0] == "GMT-9:00":
-#                 role = client.get_guild(GUILD).get_role(1045189918806261810)
+#                 role = client.get_guild(consts.GUILD).get_role(1045189918806261810)
 #             elif select.values[0] == "GMT-8:00":
-#                 role = client.get_guild(GUILD).get_role(1045189915257872444)
+#                 role = client.get_guild(consts.GUILD).get_role(1045189915257872444)
 #             elif select.values[0] == "GMT-7:00":
-#                 role = client.get_guild(GUILD).get_role(1045189909733974026)
+#                 role = client.get_guild(consts.GUILD).get_role(1045189909733974026)
 #             elif select.values[0] == "GMT-6:00":
-#                 role = client.get_guild(GUILD).get_role(1045189905971679283)
+#                 role = client.get_guild(consts.GUILD).get_role(1045189905971679283)
 #             elif select.values[0] == "GMT-5:00":
-#                 role = client.get_guild(GUILD).get_role(1045189901970313219)
+#                 role = client.get_guild(consts.GUILD).get_role(1045189901970313219)
 #             elif select.values[0] == "GMT-4:00":
-#                 role = client.get_guild(GUILD).get_role(1045189897004257291)
+#                 role = client.get_guild(consts.GUILD).get_role(1045189897004257291)
 #             elif select.values[0] == "GMT-3:00":
-#                 role = client.get_guild(GUILD).get_role(1045189725679534101)
+#                 role = client.get_guild(consts.GUILD).get_role(1045189725679534101)
 #             elif select.values[0] == "GMT-2:00":
-#                 role = client.get_guild(GUILD).get_role(1045189620712865882)
+#                 role = client.get_guild(consts.GUILD).get_role(1045189620712865882)
 #             elif select.values[0] == "GMT-1:00":
-#                 role = client.get_guild(GUILD).get_role(1045188897325461554)
+#                 role = client.get_guild(consts.GUILD).get_role(1045188897325461554)
 #             elif select.values[0] == "GMT±0:00":
-#                 role = client.get_guild(GUILD).get_role(1045186821384065045)
+#                 role = client.get_guild(consts.GUILD).get_role(1045186821384065045)
 #             elif select.values[0] == "GMT+1:00":
-#                 role = client.get_guild(GUILD).get_role(1045190313519616050)
+#                 role = client.get_guild(consts.GUILD).get_role(1045190313519616050)
 #             elif select.values[0] == "GMT+2:00":
-#                 role = client.get_guild(GUILD).get_role(1045190317550354442)
+#                 role = client.get_guild(consts.GUILD).get_role(1045190317550354442)
 #             elif select.values[0] == "GMT+3:00":
-#                 role = client.get_guild(GUILD).get_role(1045190325699891240)
+#                 role = client.get_guild(consts.GUILD).get_role(1045190325699891240)
 #             elif select.values[0] == "GMT+3:30":
-#                 role = client.get_guild(GUILD).get_role(1045196700156952628)
+#                 role = client.get_guild(consts.GUILD).get_role(1045196700156952628)
 #             elif select.values[0] == "GMT+4:00":
-#                 role = client.get_guild(GUILD).get_role(1045190328703000596)
+#                 role = client.get_guild(consts.GUILD).get_role(1045190328703000596)
 #             elif select.values[0] == "GMT+4:30":
-#                 role = client.get_guild(GUILD).get_role(1045196824501309481)
+#                 role = client.get_guild(consts.GUILD).get_role(1045196824501309481)
 #             elif select.values[0] == "GMT+5:00":
-#                 role = client.get_guild(GUILD).get_role(1045190332041678959)
+#                 role = client.get_guild(consts.GUILD).get_role(1045190332041678959)
 #             elif select.values[0] == "GMT+5:30":
-#                 role = client.get_guild(GUILD).get_role(1045196973822726246)
+#                 role = client.get_guild(consts.GUILD).get_role(1045196973822726246)
 #             elif select.values[0] == "GMT+6:00":
-#                 role = client.get_guild(GUILD).get_role(1045190335971721237)
+#                 role = client.get_guild(consts.GUILD).get_role(1045190335971721237)
 #             elif select.values[0] == "GMT+6:30":
-#                 role = client.get_guild(GUILD).get_role(1045197080844578866)
+#                 role = client.get_guild(consts.GUILD).get_role(1045197080844578866)
 #             elif select.values[0] == "GMT+7:00":
-#                 role = client.get_guild(GUILD).get_role(1045190339163594812)
+#                 role = client.get_guild(consts.GUILD).get_role(1045190339163594812)
 #             elif select.values[0] == "GMT+8:00":
-#                 role = client.get_guild(GUILD).get_role(1045190342351257691)
+#                 role = client.get_guild(consts.GUILD).get_role(1045190342351257691)
 #             elif select2.values[0] == "GMT+9:00":
-#                 role = client.get_guild(GUILD).get_role(1045190345157246997)
+#                 role = client.get_guild(consts.GUILD).get_role(1045190345157246997)
 #             elif select2.values[0] == "GMT+9:30":
-#                 role = client.get_guild(GUILD).get_role(1045197227041226762)
+#                 role = client.get_guild(consts.GUILD).get_role(1045197227041226762)
 #             elif select2.values[0] == "GMT+10:00":
-#                 role = client.get_guild(GUILD).get_role(1045190348437196851)
+#                 role = client.get_guild(consts.GUILD).get_role(1045190348437196851)
 #             elif select2.values[0] == "GMT+10:30":
-#                 role = client.get_guild(GUILD).get_role(1045197320888787005)
+#                 role = client.get_guild(consts.GUILD).get_role(1045197320888787005)
 #             elif select2.values[0] == "GMT+11:00":
-#                 role = client.get_guild(GUILD).get_role(1045190353474555914)
+#                 role = client.get_guild(consts.GUILD).get_role(1045190353474555914)
 #             elif select2.values[0] == "GMT+12:00":
-#                 role = client.get_guild(GUILD).get_role(1045190356741935145)
+#                 role = client.get_guild(consts.GUILD).get_role(1045190356741935145)
 #             elif select2.values[0] == "GMT+13:00":
-#                 role = client.get_guild(GUILD).get_role(1045190359870869634)
+#                 role = client.get_guild(consts.GUILD).get_role(1045190359870869634)
 #             elif select2.values[0] == "GMT+14:00":
-#                 role = client.get_guild(GUILD).get_role(1045190363889016864)
+#                 role = client.get_guild(consts.GUILD).get_role(1045190363889016864)
 
-#             member = client.get_guild(GUILD).get_member(interaction.user.id)
+#             member = client.get_guild(consts.GUILD).get_member(interaction.user.id)
 #             if role == True:
 #                 if role.members.__contains__(member):
 #                     await member.remove_roles(role)
@@ -223,7 +223,7 @@ class aclient(discord.Client):
         self.synced = False
         await self.wait_until_ready()
         if not self.synced:
-            await tree.sync(guild=discord.Object(id=GUILD))
+            await tree.sync(guild=discord.Object(id=consts.GUILD))
             self.synced = True
             print('Commands Synced')
         print(f'Bot is online')
@@ -287,7 +287,7 @@ tree = app_commands.CommandTree(client)
 @tree.command(
     name="beajpeg",
     description="Make frank be a .jpeg",
-    guild=discord.Object(id=GUILD)
+    guild=discord.Object(id=consts.GUILD)
 )
 async def self(Interaction: discord.Interaction):
     await Interaction.response.send_message(file=discord.File(random.choice(frankjpegs)))
@@ -297,7 +297,7 @@ async def self(Interaction: discord.Interaction):
 @tree.command(
     name='frankjpeg',
     description=f'Choose a specific frank .jpeg (out of 0 to {str(len(frankjpegs)-1)})',
-    guild=discord.Object(id=GUILD)
+    guild=discord.Object(id=consts.GUILD)
 )
 async def self(Interaction: discord.Interaction, option: int):
     await Interaction.response.send_message(file=discord.File(frankjpegs[option]))
@@ -307,7 +307,7 @@ async def self(Interaction: discord.Interaction, option: int):
 @tree.command(
     name='listfrankjpegs',
     description='List the Frank .jpegs',
-    guild=discord.Object(id=GUILD)
+    guild=discord.Object(id=consts.GUILD)
 )
 async def self(Interaction: discord.Interaction):
     message = 'Frank jpegs:'
@@ -324,7 +324,7 @@ async def self(Interaction: discord.Interaction):
 @tree.command(
     name='poll',
     description='Make a poll',
-    guild=discord.Object(id=GUILD))
+    guild=discord.Object(id=consts.GUILD))
 async def embed(Interaction: discord.Interaction, question: str, option1: str, option2: str, option3: str = None, option4: str = None, option5: str = None, option6: str = None, option7: str = None, option8: str = None, option9: str = None, option10: str = None):
     await Interaction.response.send_message('Creating Poll', ephemeral=True)
     description = '1️⃣ '+option1+'\n\n2️⃣ '+option2
@@ -379,7 +379,7 @@ async def embed(Interaction: discord.Interaction, question: str, option1: str, o
 @tree.command(
     name='whoreacted',
     description='Get a list of who reacted using what',
-    guild=discord.Object(id=GUILD))
+    guild=discord.Object(id=consts.GUILD))
 async def self(Interaction: discord.Interaction, messageid: str, poll: bool):
     await Interaction.response.send_message('Gathering...')
     channel = Interaction.channel
@@ -410,7 +410,7 @@ async def self(Interaction: discord.Interaction, messageid: str, poll: bool):
 @tree.command(
     name='polltotal',
     description='Get a tally of a poll',
-    guild=discord.Object(id=GUILD)
+    guild=discord.Object(id=consts.GUILD)
 )
 async def self(Interaction: discord.Interaction, messageid: str):
     await Interaction.response.send_message('Calculating...')
@@ -525,7 +525,7 @@ async def self(Interaction: discord.Interaction, messageid: str):
 @tree.command(
     name='whowon',
     description='who won?',
-    guild=discord.Object(id=GUILD)
+    guild=discord.Object(id=consts.GUILD)
 )
 async def self(Interaction: discord.Interaction, magicdiepollid: str, doublenothingpollid: str, magicnumberasemoji: str, doublenumberasemoji: str):
     await Interaction.response.send_message('Gathering...')
@@ -574,11 +574,11 @@ async def self(Interaction: discord.Interaction, magicdiepollid: str, doublenoth
 @tree.command(
     name="reboot",
     description="Admin Only Command: Reboot Bitey Frank",
-    guild=discord.Object(id=GUILD)
+    guild=discord.Object(id=consts.GUILD)
 )
 async def self(Interaction: discord.Interaction):
     await Interaction.response.send_message("Rebooting...")
     sys.exit()
 
 
-client.run(TOKEN)
+client.run(consts.TOKEN)

@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-TOKEN = os.getenv('DISCORD_TOKEN')
+TOKEN: str = os.getenv('DISCORD_TOKEN')  # type: ignore
 GUILD = int(os.getenv('DISCORD_GUILD'))  # type: ignore
 
 FRANK_JOIN_EMOTES = [
