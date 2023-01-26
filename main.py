@@ -18,14 +18,16 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = int(os.getenv('DISCORD_GUILD'))
 
 # Definitions
-frankJoinEmotes =[
+frankJoinEmotes = [
     '<:chonkfronk:1040418775129927752>',
     '<:frank3:1040422477433675857>',
     '<:sneakyfrank:1040419659792515213>',
     '<:hideyhole:1042217416278692003>',
     '<:jpeg:1042214971460829326>'
-    ]
+]
 frankjpegs = []
+
+
 async def sendButtonPingRoles():
     roles = [
         {
@@ -79,10 +81,11 @@ async def sendButtonPingRoles():
                 await button_info.response.send_message(role["response"], ephemeral=True)
         return callback
 
-    view=View()
+    view = View()
 
     for role in roles:
-        butt = Button(label=role["name"], style=discord.ButtonStyle.gray, emoji=role["emoji"])
+        butt = Button(
+            label=role["name"], style=discord.ButtonStyle.gray, emoji=role["emoji"])
         butt.callback = generate_callback(role)
         view.add_item(butt)
 
@@ -128,10 +131,11 @@ async def sendButtonTonaRoles():
                 await button_info.response.send_message(tona["response"], ephemeral=True)
         return callback
 
-    view=View()
+    view = View()
 
     for tona in the_tonas:
-        butt = Button(label=tona["name"], style=discord.ButtonStyle.gray, emoji=tona["emoji"])
+        butt = Button(
+            label=tona["name"], style=discord.ButtonStyle.gray, emoji=tona["emoji"])
         butt.callback = generate_tona_callback(tona)
         view.add_item(butt)
 
@@ -275,7 +279,7 @@ class aclient(discord.Client):
         await self.wait_until_ready()
         if not self.synced:
             await tree.sync(guild=discord.Object(id=GUILD))
-            self.synced=True
+            self.synced = True
             print('Commands Synced')
         print(f'Bot is online')
         if 'debug' in os.listdir('./'):
@@ -285,7 +289,7 @@ class aclient(discord.Client):
                 title='Online Status',
                 description=f'Bitey Frank Online Since <t:{str(int(time.time()))}:R> <@&1065773538281259009>',
                 color=discord.Color.green()
-                ))
+            ))
         else:
             await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="my stinky poos"))
             print('Bot Presence changed to \"Watching my stinky poos\"')
@@ -293,7 +297,7 @@ class aclient(discord.Client):
                 title='Online Status',
                 description=f'Bitey Frank Online Since <t:{str(int(time.time()))}:R>',
                 color=discord.Color.green()
-                ))
+            ))
 
         ### CONTRIBUTERS, If you see this would you be able to make this loop every 10 minutes? ###
         await client.get_channel(1043016204278829066).purge()
@@ -302,17 +306,18 @@ class aclient(discord.Client):
         # await sendDropdownTZRoles()
         ###########################################################################################
 
+
 client = aclient()
 
 for frankJpeg in os.listdir('beajpeg-assets'):
-    if frankJpeg.endswith(('jpg','jpeg','png','webp','gif')):
+    if frankJpeg.endswith(('jpg', 'jpeg', 'png', 'webp', 'gif')):
         frankjpegs.append(f'beajpeg-assets/{frankJpeg}')
     else:
         client.get_channel(
             '1061732002275016745'
-            ).send(
-                f'Warning, file \"{frankJpeg}\" is not a supported Frank JPEG'
-                )
+        ).send(
+            f'Warning, file \"{frankJpeg}\" is not a supported Frank JPEG'
+        )
 
 
 @client.event
@@ -329,39 +334,42 @@ async def on_member_remove(member):
     print(f'Said goodbye to {member}')
 
 
-#Commands
+# Commands
 
 tree = app_commands.CommandTree(client)
+
 
 @tree.command(
     name="beajpeg",
     description="Make frank be a .jpeg",
     guild=discord.Object(id=GUILD)
-    )
-async def self(Interaction:discord.Interaction):
+)
+async def self(Interaction: discord.Interaction):
     await Interaction.response.send_message(file=discord.File(random.choice(frankjpegs)))
     print('Ran /beajpeg')
+
 
 @tree.command(
     name='frankjpeg',
     description=f'Choose a specific frank .jpeg (out of 0 to {str(len(frankjpegs)-1)})',
     guild=discord.Object(id=GUILD)
-    )
-async def self(Interaction:discord.Interaction, option: int):
+)
+async def self(Interaction: discord.Interaction, option: int):
     await Interaction.response.send_message(file=discord.File(frankjpegs[option]))
     print('Ran /frankjpeg')
+
 
 @tree.command(
     name='listfrankjpegs',
     description='List the Frank .jpegs',
     guild=discord.Object(id=GUILD)
-    )
-async def self(Interaction:discord.Interaction):
-    message='Frank jpegs:'
-    id=0
+)
+async def self(Interaction: discord.Interaction):
+    message = 'Frank jpegs:'
+    id = 0
     for jpegName in frankjpegs:
-        message+=f'\n*{str(id)}*: **__{jpegName[15:]}__**'
-        id+=1
+        message += f'\n*{str(id)}*: **__{jpegName[15:]}__**'
+        id += 1
     await Interaction.response.send_message(message)
     print('Ran /listfrankjpegs')
 
@@ -372,36 +380,36 @@ async def self(Interaction:discord.Interaction):
     name='poll',
     description='Make a poll',
     guild=discord.Object(id=GUILD))
-async def embed(Interaction:discord.Interaction, question:str, option1: str, option2: str, option3: str=None, option4: str=None, option5: str=None, option6: str=None, option7: str=None, option8: str=None, option9: str=None, option10: str=None):
-    await Interaction.response.send_message('Creating Poll',ephemeral=True)
-    description='1️⃣ '+option1+'\n\n2️⃣ '+option2
+async def embed(Interaction: discord.Interaction, question: str, option1: str, option2: str, option3: str = None, option4: str = None, option5: str = None, option6: str = None, option7: str = None, option8: str = None, option9: str = None, option10: str = None):
+    await Interaction.response.send_message('Creating Poll', ephemeral=True)
+    description = '1️⃣ '+option1+'\n\n2️⃣ '+option2
 
     if option3 != None:
-        description+='\n\n3️⃣ '+option3
+        description += '\n\n3️⃣ '+option3
     if option4 != None:
-        description+='\n\n4️⃣ '+option4
+        description += '\n\n4️⃣ '+option4
     if option5 != None:
-        description+='\n\n5️⃣ '+option5
+        description += '\n\n5️⃣ '+option5
     if option6 != None:
-        description+='\n\n6️⃣ '+option6
+        description += '\n\n6️⃣ '+option6
     if option7 != None:
-        description+='\n\n7️⃣ '+option7
+        description += '\n\n7️⃣ '+option7
     if option8 != None:
-        description+='\n\n8️⃣ '+option8
+        description += '\n\n8️⃣ '+option8
     if option9 != None:
-        description+='\n\n9️⃣ '+option9
+        description += '\n\n9️⃣ '+option9
     if option10 != None:
-        description+='\n\n🔟 '+option10
+        description += '\n\n🔟 '+option10
 
-    poll= await client.get_channel(Interaction.channel_id).send(
+    poll = await client.get_channel(Interaction.channel_id).send(
         embed=discord.Embed(
             title=question,
             description=description,
             color=discord.Color.green()
-            ).set_author(
-                name=Interaction.user.name,
-                icon_url=Interaction.user.avatar
-            ))
+        ).set_author(
+            name=Interaction.user.name,
+            icon_url=Interaction.user.avatar
+        ))
 
     await poll.add_reaction('1️⃣')
     await poll.add_reaction('2️⃣')
@@ -427,195 +435,203 @@ async def embed(Interaction:discord.Interaction, question:str, option1: str, opt
     name='whoreacted',
     description='Get a list of who reacted using what',
     guild=discord.Object(id=GUILD))
-async def self(Interaction:discord.Interaction, messageid:str, poll:bool):
+async def self(Interaction: discord.Interaction, messageid: str, poll: bool):
     await Interaction.response.send_message('Gathering...')
-    channel=Interaction.channel
-    message=await Interaction.channel.fetch_message(int(messageid))
-    users=list()
+    channel = Interaction.channel
+    message = await Interaction.channel.fetch_message(int(messageid))
+    users = list()
     for msgreaction in message.reactions:
         async for user in msgreaction.users():
             users.append(f'{str(msgreaction)} {str(user)}')
     users.sort()
-    result=''
+    result = ''
     for user in users:
-        if poll==True:
+        if poll == True:
             if user.endswith('Bitey Frank#4533') == False:
 
-                result+=user+'\n'
+                result += user+'\n'
         else:
-            result+=user+'\n'
+            result += user+'\n'
 
     await channel.send(embed=discord.Embed(
         title='Who reacted to \"'+str(messageid)+'\"',
         description=result,
         color=discord.Color.green()
-        ).set_author(
-            name=Interaction.user.name,
-            icon_url=Interaction.user.avatar))
+    ).set_author(
+        name=Interaction.user.name,
+        icon_url=Interaction.user.avatar))
 
 
 @tree.command(
     name='polltotal',
     description='Get a tally of a poll',
     guild=discord.Object(id=GUILD)
-    )
-async def self(Interaction:discord.Interaction,messageid:str):
+)
+async def self(Interaction: discord.Interaction, messageid: str):
     await Interaction.response.send_message('Calculating...')
-    message=await Interaction.channel.fetch_message(int(messageid))
-    users=list()
+    message = await Interaction.channel.fetch_message(int(messageid))
+    users = list()
     for msgreaction in message.reactions:
         async for user in msgreaction.users():
-            thing=str(msgreaction)+' '+str(user)
+            thing = str(msgreaction)+' '+str(user)
             users.append(str(thing))
 
     users.sort()
-    totalPollers=len(users)
+    totalPollers = len(users)
     for user in users:
         if user.endswith('Bitey Frank#4533'):
-            totalPollers-=1
-    onePollers=-1
-    twoPollers=-1
-    threePollers=-1
-    fourPollers=-1
-    fivePollers=-1
-    sixPollers=-1
-    sevenPollers=-1
-    eightPollers=-1
-    ninePollers=-1
-    tenPollers=-1
+            totalPollers -= 1
+    onePollers = -1
+    twoPollers = -1
+    threePollers = -1
+    fourPollers = -1
+    fivePollers = -1
+    sixPollers = -1
+    sevenPollers = -1
+    eightPollers = -1
+    ninePollers = -1
+    tenPollers = -1
 
-    msg=f'Poll: {str(message.embeds[0].title)}\n\n{str(message.embeds[0].description)}\n\n\nTotal Pollers: {str(totalPollers)}\n\n'
+    msg = f'Poll: {str(message.embeds[0].title)}\n\n{str(message.embeds[0].description)}\n\n\nTotal Pollers: {str(totalPollers)}\n\n'
 
     for user in users:
         if user.startswith('1️⃣') == True:
-            onePollers+=1
+            onePollers += 1
         elif user.startswith('2️⃣') == True:
-            twoPollers+=1
+            twoPollers += 1
         elif user.startswith('3️⃣') == True:
-            threePollers+=1
+            threePollers += 1
         elif user.startswith('4️⃣') == True:
-            fourPollers+=1
+            fourPollers += 1
         elif user.startswith('5️⃣') == True:
-            fivePollers+=1
+            fivePollers += 1
         elif user.startswith('6️⃣') == True:
-            sixPollers+=1
+            sixPollers += 1
         elif user.startswith('7️⃣') == True:
-            sevenPollers+=1
+            sevenPollers += 1
         elif user.startswith('8️⃣') == True:
-            eightPollers+=1
+            eightPollers += 1
         elif user.startswith('9️⃣') == True:
-            ninePollers+=1
+            ninePollers += 1
         elif user.startswith('🔟') == True:
-            tenPollers+=1
+            tenPollers += 1
 
+    onePollersPercentage = float(onePollers/totalPollers)
 
+    msg += '1️⃣ *'+str(round(onePollersPercentage*100, 2)) + \
+        '%* **('+str(onePollers)+')\n\n**'
 
+    twoPollersPercentage = float(twoPollers/totalPollers)
 
-
-    onePollersPercentage=float(onePollers/totalPollers)
-
-    msg+='1️⃣ *'+str(round(onePollersPercentage*100,2))+'%* **('+str(onePollers)+')\n\n**'
-
-    twoPollersPercentage=float(twoPollers/totalPollers)
-
-    msg+='2️⃣ *'+str(round(twoPollersPercentage*100,2))+'%* **('+str(twoPollers)+')\n\n**'
+    msg += '2️⃣ *'+str(round(twoPollersPercentage*100, 2)) + \
+        '%* **('+str(twoPollers)+')\n\n**'
 
     if users.count('3️⃣') != 0:
-        threePollersPercentage=float(threePollers/totalPollers)
-        msg+='3️⃣ *'+str(round(threePollersPercentage*100,2))+'%* **('+str(threePollers)+')\n\n**'
+        threePollersPercentage = float(threePollers/totalPollers)
+        msg += '3️⃣ *'+str(round(threePollersPercentage*100, 2)) + \
+            '%* **('+str(threePollers)+')\n\n**'
 
     if users.count('4️⃣') != 0:
-        fourPollersPercentage=float(fourPollers/totalPollers)
-        msg+='4️⃣ *'+str(round(fourPollersPercentage*100,2))+'%* **('+str(fourPollers)+')\n\n**'
+        fourPollersPercentage = float(fourPollers/totalPollers)
+        msg += '4️⃣ *'+str(round(fourPollersPercentage*100, 2)) + \
+            '%* **('+str(fourPollers)+')\n\n**'
 
     if users.count('5️⃣') != 0:
-        fivePollersPercentage=float(fivePollers/totalPollers)
-        msg+='5️⃣ *'+str(round(fivePollersPercentage*100,2))+'%* **('+str(fivePollers)+')\n\n**'
+        fivePollersPercentage = float(fivePollers/totalPollers)
+        msg += '5️⃣ *'+str(round(fivePollersPercentage*100, 2)) + \
+            '%* **('+str(fivePollers)+')\n\n**'
 
     if users.count('6️⃣') != 0:
-        sixPollersPercentage=float(sixPollers/totalPollers)
-        msg+='6️⃣ *'+str(round(sixPollersPercentage*100,2))+'%* **('+str(sixPollers)+')\n\n**'
+        sixPollersPercentage = float(sixPollers/totalPollers)
+        msg += '6️⃣ *'+str(round(sixPollersPercentage*100, 2)) + \
+            '%* **('+str(sixPollers)+')\n\n**'
 
     if users.count('7️⃣') != 0:
-        sevenPollersPercentage=float(sevenPollers/totalPollers)
-        msg+='7️⃣ *'+str(round(sevenPollersPercentage*100,2))+'%* **('+str(sevenPollers)+')\n\n**'
+        sevenPollersPercentage = float(sevenPollers/totalPollers)
+        msg += '7️⃣ *'+str(round(sevenPollersPercentage*100, 2)) + \
+            '%* **('+str(sevenPollers)+')\n\n**'
 
     if users.count('8️⃣') != 0:
-        eightPollersPercentage=float(eightPollers/totalPollers)
-        msg+='8️⃣ *'+str(round(eightPollersPercentage*100,2))+'%* **('+str(eightPollers)+')\n\n**'
+        eightPollersPercentage = float(eightPollers/totalPollers)
+        msg += '8️⃣ *'+str(round(eightPollersPercentage*100, 2)) + \
+            '%* **('+str(eightPollers)+')\n\n**'
 
     if users.count('9️⃣') != 0:
-        ninePollersPercentage=float(ninePollers/totalPollers)
-        msg+='9️⃣ *'+str(round(ninePollersPercentage*100,2))+'%* **('+str(ninePollers)+')\n\n**'
+        ninePollersPercentage = float(ninePollers/totalPollers)
+        msg += '9️⃣ *'+str(round(ninePollersPercentage*100, 2)) + \
+            '%* **('+str(ninePollers)+')\n\n**'
 
     if users.count('🔟') != 0:
-        tenPollersPercentage=float(tenPollers/totalPollers)
-        msg+='🔟 *'+str(round(tenPollersPercentage*100,2))+'%* **('+str(tenPollers)+')\n\n**'
+        tenPollersPercentage = float(tenPollers/totalPollers)
+        msg += '🔟 *'+str(round(tenPollersPercentage*100, 2)) + \
+            '%* **('+str(tenPollers)+')\n\n**'
 
     await Interaction.channel.send(
         embed=discord.Embed(
             title='Tallied Votes',
             description=msg,
             color=discord.Color.green()
-            ).set_author(
-                name=Interaction.user.name,
-                icon_url=Interaction.user.avatar
-            ))
+        ).set_author(
+            name=Interaction.user.name,
+            icon_url=Interaction.user.avatar
+        ))
+
 
 @tree.command(
     name='whowon',
     description='who won?',
     guild=discord.Object(id=GUILD)
 )
-async def self(Interaction:discord.Interaction,magicdiepollid:str,doublenothingpollid:str,magicnumberasemoji:str,doublenumberasemoji:str):
+async def self(Interaction: discord.Interaction, magicdiepollid: str, doublenothingpollid: str, magicnumberasemoji: str, doublenumberasemoji: str):
     await Interaction.response.send_message('Gathering...')
-    channel=Interaction.channel
-    message=await Interaction.channel.fetch_message(int(magicdiepollid))
-    Magicusers=list()
+    channel = Interaction.channel
+    message = await Interaction.channel.fetch_message(int(magicdiepollid))
+    Magicusers = list()
     for msgreaction in message.reactions:
         async for user in msgreaction.users():
             Magicusers.append(f'{str(msgreaction)} {str(user)}')
     Magicusers.sort()
-    result=''
+    result = ''
     for user in Magicusers:
-            if user.endswith('Bitey Frank#4533') == False:
-                if user.startswith(magicnumberasemoji):
-                    result+=user+'\n'
+        if user.endswith('Bitey Frank#4533') == False:
+            if user.startswith(magicnumberasemoji):
+                result += user+'\n'
 
     await channel.send(embed=discord.Embed(
         title='Who Won?',
         description=result,
         color=discord.Color.green()
-        ).set_author(
-            name=Interaction.user.name,
-            icon_url=Interaction.user.avatar))
+    ).set_author(
+        name=Interaction.user.name,
+        icon_url=Interaction.user.avatar))
 
-    message=await Interaction.channel.fetch_message(int(doublenothingpollid))
-    Doubleusers=list()
+    message = await Interaction.channel.fetch_message(int(doublenothingpollid))
+    Doubleusers = list()
     for msgreaction in message.reactions:
         async for user in msgreaction.users():
             Doubleusers.append(f'{str(msgreaction)} {str(user)}')
     Doubleusers.sort()
-    result=''
+    result = ''
     for user in Doubleusers:
-            if user.endswith('Bitey Frank#4533') == False:
-                if user.startswith(doublenumberasemoji):
-                    result+=user+'\n'
+        if user.endswith('Bitey Frank#4533') == False:
+            if user.startswith(doublenumberasemoji):
+                result += user+'\n'
 
     await channel.send(embed=discord.Embed(
         title='Who Won? (double)',
         description=result,
         color=discord.Color.green()
-        ).set_author(
-            name=Interaction.user.name,
-            icon_url=Interaction.user.avatar))
+    ).set_author(
+        name=Interaction.user.name,
+        icon_url=Interaction.user.avatar))
+
 
 @tree.command(
     name="reboot",
     description="Admin Only Command: Reboot Bitey Frank",
     guild=discord.Object(id=GUILD)
 )
-async def self(Interaction:discord.Interaction):
+async def self(Interaction: discord.Interaction):
     await Interaction.response.send_message("Rebooting...")
     sys.exit()
 
