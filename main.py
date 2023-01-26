@@ -1,12 +1,12 @@
 import os
-import requests
 import discord
 from discord.ui import Button, View, Select
 import random
 import time
-from discord import app_commands, member, InteractionMessage, Interaction
-from discord.ext.commands import has_permissions, MissingPermissions
+from discord import app_commands
 from dotenv import load_dotenv
+import subprocess
+import sys
 
 
 intents = discord.Intents.default()
@@ -17,11 +17,16 @@ intents.members = True
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
-frankJoinEmotes = ['<:chonkfronk:1040418775129927752>', '<:frank3:1040422477433675857>', '<:sneakyfrank:1040419659792515213>', '<:hideyhole:1042217416278692003>', '<:jpeg:1042214971460829326>']
+
+# Definitions
+frankJoinEmotes =[
+    '<:chonkfronk:1040418775129927752>',
+    '<:frank3:1040422477433675857>',
+    '<:sneakyfrank:1040419659792515213>',
+    '<:hideyhole:1042217416278692003>',
+    '<:jpeg:1042214971460829326>'
+    ]
 frankjpegs = []
-
-
-
 async def sendButtonPingRoles():
     roles = [
         {
@@ -134,129 +139,129 @@ async def sendButtonTonaRoles():
     await client.get_channel(1043016204278829066).send('Click a button to choose various *Tona Roles*', view=view)
 
 
-async def sendDropdownTZRoles():
-    select = Select(options=[
-        discord.SelectOption(label="GMT-12:00", emoji="🕛"),
-        discord.SelectOption(label="GMT-11:00", emoji="🕚"),
-        discord.SelectOption(label="GMT-10:00", emoji="🕙"),
-        discord.SelectOption(label="GMT-9:00", emoji="🕘"),
-        discord.SelectOption(label="GMT-8:00", emoji="🕗"),
-        discord.SelectOption(label="GMT-7:00", emoji="🕖"),
-        discord.SelectOption(label="GMT-6:00", emoji="🕕"),
-        discord.SelectOption(label="GMT-5:00", emoji="🕔"),
-        discord.SelectOption(label="GMT-4:00", emoji="🕓"),
-        discord.SelectOption(label="GMT-3:00", emoji="🕒"),
-        discord.SelectOption(label="GMT-2:00", emoji="🕑"),
-        discord.SelectOption(label="GMT-1:00", emoji="🕐"),
-        discord.SelectOption(label="GMT±0:00", emoji="<a:animated_clock:562493945058164739>"),
-        discord.SelectOption(label="GMT+1:00", emoji="🕐"),
-        discord.SelectOption(label="GMT+2:00", emoji="🕑"),
-        discord.SelectOption(label="GMT+3:00", emoji="🕒"),
-        discord.SelectOption(label="GMT+3:30", emoji="🕞"),
-        discord.SelectOption(label="GMT+4:00", emoji="🕓"),
-        discord.SelectOption(label="GMT+4:30", emoji="🕟"),
-        discord.SelectOption(label="GMT+5:00", emoji="🕔"),
-        discord.SelectOption(label="GMT+5:30", emoji="🕠"),
-        discord.SelectOption(label="GMT+6:00", emoji="🕕"),
-        discord.SelectOption(label="GMT+6:30", emoji="🕡"),
-        discord.SelectOption(label="GMT+7:00", emoji="🕖"),
-        discord.SelectOption(label="GMT+8:00", emoji="🕗")
-    ])
-    select2=Select(options=[
-        discord.SelectOption(label="GMT+9:00", emoji="🕘"),
-        discord.SelectOption(label="GMT+9:30", emoji="🕤"),
-        discord.SelectOption(label="GMT+10:00", emoji="🕙"),
-        discord.SelectOption(label="GMT+10:30", emoji="🕥"),
-        discord.SelectOption(label="GMT+11:00", emoji="🕚"),
-        discord.SelectOption(label="GMT+12:00", emoji="🕛"),
-        discord.SelectOption(label="GMT+13:00", emoji="3️⃣"),
-        discord.SelectOption(label="GMT+14:00", emoji="4️⃣")
-    ])
+# async def sendDropdownTZRoles():
+#     select = Select(options=[
+#         discord.SelectOption(label="GMT-12:00", emoji="🕛"),
+#         discord.SelectOption(label="GMT-11:00", emoji="🕚"),
+#         discord.SelectOption(label="GMT-10:00", emoji="🕙"),
+#         discord.SelectOption(label="GMT-9:00", emoji="🕘"),
+#         discord.SelectOption(label="GMT-8:00", emoji="🕗"),
+#         discord.SelectOption(label="GMT-7:00", emoji="🕖"),
+#         discord.SelectOption(label="GMT-6:00", emoji="🕕"),
+#         discord.SelectOption(label="GMT-5:00", emoji="🕔"),
+#         discord.SelectOption(label="GMT-4:00", emoji="🕓"),
+#         discord.SelectOption(label="GMT-3:00", emoji="🕒"),
+#         discord.SelectOption(label="GMT-2:00", emoji="🕑"),
+#         discord.SelectOption(label="GMT-1:00", emoji="🕐"),
+#         discord.SelectOption(label="GMT±0:00", emoji="<a:animated_clock:562493945058164739>"),
+#         discord.SelectOption(label="GMT+1:00", emoji="🕐"),
+#         discord.SelectOption(label="GMT+2:00", emoji="🕑"),
+#         discord.SelectOption(label="GMT+3:00", emoji="🕒"),
+#         discord.SelectOption(label="GMT+3:30", emoji="🕞"),
+#         discord.SelectOption(label="GMT+4:00", emoji="🕓"),
+#         discord.SelectOption(label="GMT+4:30", emoji="🕟"),
+#         discord.SelectOption(label="GMT+5:00", emoji="🕔"),
+#         discord.SelectOption(label="GMT+5:30", emoji="🕠"),
+#         discord.SelectOption(label="GMT+6:00", emoji="🕕"),
+#         discord.SelectOption(label="GMT+6:30", emoji="🕡"),
+#         discord.SelectOption(label="GMT+7:00", emoji="🕖"),
+#         discord.SelectOption(label="GMT+8:00", emoji="🕗")
+#     ])
+#     select2=Select(options=[
+#         discord.SelectOption(label="GMT+9:00", emoji="🕘"),
+#         discord.SelectOption(label="GMT+9:30", emoji="🕤"),
+#         discord.SelectOption(label="GMT+10:00", emoji="🕙"),
+#         discord.SelectOption(label="GMT+10:30", emoji="🕥"),
+#         discord.SelectOption(label="GMT+11:00", emoji="🕚"),
+#         discord.SelectOption(label="GMT+12:00", emoji="🕛"),
+#         discord.SelectOption(label="GMT+13:00", emoji="3️⃣"),
+#         discord.SelectOption(label="GMT+14:00", emoji="4️⃣")
+#     ])
+#
+#     async def timezoneCallback(interaction):
+#         if select.values == True:
+#             if select.values[0] == "GMT-12:00":
+#                 role = client.get_guild(1030635475528056872).get_role(1045189927954026537)
+#             elif select.values[0] == "GMT-11:00":
+#                 role = client.get_guild(1030635475528056872).get_role(1045189924883808278)
+#             elif select.values[0] == "GMT-10:00":
+#                 role = client.get_guild(1030635475528056872).get_role(1045189921905848320)
+#             elif select.values[0] == "GMT-9:00":
+#                 role = client.get_guild(1030635475528056872).get_role(1045189918806261810)
+#             elif select.values[0] == "GMT-8:00":
+#                 role = client.get_guild(1030635475528056872).get_role(1045189915257872444)
+#             elif select.values[0] == "GMT-7:00":
+#                 role = client.get_guild(1030635475528056872).get_role(1045189909733974026)
+#             elif select.values[0] == "GMT-6:00":
+#                 role = client.get_guild(1030635475528056872).get_role(1045189905971679283)
+#             elif select.values[0] == "GMT-5:00":
+#                 role = client.get_guild(1030635475528056872).get_role(1045189901970313219)
+#             elif select.values[0] == "GMT-4:00":
+#                 role = client.get_guild(1030635475528056872).get_role(1045189897004257291)
+#             elif select.values[0] == "GMT-3:00":
+#                 role = client.get_guild(1030635475528056872).get_role(1045189725679534101)
+#             elif select.values[0] == "GMT-2:00":
+#                 role = client.get_guild(1030635475528056872).get_role(1045189620712865882)
+#             elif select.values[0] == "GMT-1:00":
+#                 role = client.get_guild(1030635475528056872).get_role(1045188897325461554)
+#             elif select.values[0] == "GMT±0:00":
+#                 role = client.get_guild(1030635475528056872).get_role(1045186821384065045)
+#             elif select.values[0] == "GMT+1:00":
+#                 role = client.get_guild(1030635475528056872).get_role(1045190313519616050)
+#             elif select.values[0] == "GMT+2:00":
+#                 role = client.get_guild(1030635475528056872).get_role(1045190317550354442)
+#             elif select.values[0] == "GMT+3:00":
+#                 role = client.get_guild(1030635475528056872).get_role(1045190325699891240)
+#             elif select.values[0] == "GMT+3:30":
+#                 role = client.get_guild(1030635475528056872).get_role(1045196700156952628)
+#             elif select.values[0] == "GMT+4:00":
+#                 role = client.get_guild(1030635475528056872).get_role(1045190328703000596)
+#             elif select.values[0] == "GMT+4:30":
+#                 role = client.get_guild(1030635475528056872).get_role(1045196824501309481)
+#             elif select.values[0] == "GMT+5:00":
+#                 role = client.get_guild(1030635475528056872).get_role(1045190332041678959)
+#             elif select.values[0] == "GMT+5:30":
+#                 role = client.get_guild(1030635475528056872).get_role(1045196973822726246)
+#             elif select.values[0] == "GMT+6:00":
+#                 role = client.get_guild(1030635475528056872).get_role(1045190335971721237)
+#             elif select.values[0] == "GMT+6:30":
+#                 role = client.get_guild(1030635475528056872).get_role(1045197080844578866)
+#             elif select.values[0] == "GMT+7:00":
+#                 role = client.get_guild(1030635475528056872).get_role(1045190339163594812)
+#             elif select.values[0] == "GMT+8:00":
+#                 role = client.get_guild(1030635475528056872).get_role(1045190342351257691)
+#             elif select2.values[0] == "GMT+9:00":
+#                 role = client.get_guild(1030635475528056872).get_role(1045190345157246997)
+#             elif select2.values[0] == "GMT+9:30":
+#                 role = client.get_guild(1030635475528056872).get_role(1045197227041226762)
+#             elif select2.values[0] == "GMT+10:00":
+#                 role = client.get_guild(1030635475528056872).get_role(1045190348437196851)
+#             elif select2.values[0] == "GMT+10:30":
+#                 role = client.get_guild(1030635475528056872).get_role(1045197320888787005)
+#             elif select2.values[0] == "GMT+11:00":
+#                 role = client.get_guild(1030635475528056872).get_role(1045190353474555914)
+#             elif select2.values[0] == "GMT+12:00":
+#                 role = client.get_guild(1030635475528056872).get_role(1045190356741935145)
+#             elif select2.values[0] == "GMT+13:00":
+#                 role = client.get_guild(1030635475528056872).get_role(1045190359870869634)
+#             elif select2.values[0] == "GMT+14:00":
+#                 role = client.get_guild(1030635475528056872).get_role(1045190363889016864)
 
-    async def timezoneCallback(interaction):
-        if select.values == True:
-            if select.values[0] == "GMT-12:00":
-                role = client.get_guild(1030635475528056872).get_role(1045189927954026537)
-            elif select.values[0] == "GMT-11:00":
-                role = client.get_guild(1030635475528056872).get_role(1045189924883808278)
-            elif select.values[0] == "GMT-10:00":
-                role = client.get_guild(1030635475528056872).get_role(1045189921905848320)
-            elif select.values[0] == "GMT-9:00":
-                role = client.get_guild(1030635475528056872).get_role(1045189918806261810)
-            elif select.values[0] == "GMT-8:00":
-                role = client.get_guild(1030635475528056872).get_role(1045189915257872444)
-            elif select.values[0] == "GMT-7:00":
-                role = client.get_guild(1030635475528056872).get_role(1045189909733974026)
-            elif select.values[0] == "GMT-6:00":
-                role = client.get_guild(1030635475528056872).get_role(1045189905971679283)
-            elif select.values[0] == "GMT-5:00":
-                role = client.get_guild(1030635475528056872).get_role(1045189901970313219)
-            elif select.values[0] == "GMT-4:00":
-                role = client.get_guild(1030635475528056872).get_role(1045189897004257291)
-            elif select.values[0] == "GMT-3:00":
-                role = client.get_guild(1030635475528056872).get_role(1045189725679534101)
-            elif select.values[0] == "GMT-2:00":
-                role = client.get_guild(1030635475528056872).get_role(1045189620712865882)
-            elif select.values[0] == "GMT-1:00":
-                role = client.get_guild(1030635475528056872).get_role(1045188897325461554)
-            elif select.values[0] == "GMT±0:00":
-                role = client.get_guild(1030635475528056872).get_role(1045186821384065045)
-            elif select.values[0] == "GMT+1:00":
-                role = client.get_guild(1030635475528056872).get_role(1045190313519616050)
-            elif select.values[0] == "GMT+2:00":
-                role = client.get_guild(1030635475528056872).get_role(1045190317550354442)
-            elif select.values[0] == "GMT+3:00":
-                role = client.get_guild(1030635475528056872).get_role(1045190325699891240)
-            elif select.values[0] == "GMT+3:30":
-                role = client.get_guild(1030635475528056872).get_role(1045196700156952628)
-            elif select.values[0] == "GMT+4:00":
-                role = client.get_guild(1030635475528056872).get_role(1045190328703000596)
-            elif select.values[0] == "GMT+4:30":
-                role = client.get_guild(1030635475528056872).get_role(1045196824501309481)
-            elif select.values[0] == "GMT+5:00":
-                role = client.get_guild(1030635475528056872).get_role(1045190332041678959)
-            elif select.values[0] == "GMT+5:30":
-                role = client.get_guild(1030635475528056872).get_role(1045196973822726246)
-            elif select.values[0] == "GMT+6:00":
-                role = client.get_guild(1030635475528056872).get_role(1045190335971721237)
-            elif select.values[0] == "GMT+6:30":
-                role = client.get_guild(1030635475528056872).get_role(1045197080844578866)
-            elif select.values[0] == "GMT+7:00":
-                role = client.get_guild(1030635475528056872).get_role(1045190339163594812)
-            elif select.values[0] == "GMT+8:00":
-                role = client.get_guild(1030635475528056872).get_role(1045190342351257691)
-            elif select2.values[0] == "GMT+9:00":
-                role = client.get_guild(1030635475528056872).get_role(1045190345157246997)
-            elif select2.values[0] == "GMT+9:30":
-                role = client.get_guild(1030635475528056872).get_role(1045197227041226762)
-            elif select2.values[0] == "GMT+10:00":
-                role = client.get_guild(1030635475528056872).get_role(1045190348437196851)
-            elif select2.values[0] == "GMT+10:30":
-                role = client.get_guild(1030635475528056872).get_role(1045197320888787005)
-            elif select2.values[0] == "GMT+11:00":
-                role = client.get_guild(1030635475528056872).get_role(1045190353474555914)
-            elif select2.values[0] == "GMT+12:00":
-                role = client.get_guild(1030635475528056872).get_role(1045190356741935145)
-            elif select2.values[0] == "GMT+13:00":
-                role = client.get_guild(1030635475528056872).get_role(1045190359870869634)
-            elif select2.values[0] == "GMT+14:00":
-                role = client.get_guild(1030635475528056872).get_role(1045190363889016864)
+#             member = client.get_guild(1030635475528056872).get_member(interaction.user.id)
+#             if role == True:
+#                 if role.members.__contains__(member):
+#                     await member.remove_roles(role)
+#                     await interaction.response.send_message("Removed \""+role.name()+"\" Role", ephemeral=True)
+#                 else:
+#                     await member.add_roles(role)
+#                     await interaction.response.send_message("You have been given the \""+role.name()+"\" Role", ephemeral=True)
 
-            member = client.get_guild(1030635475528056872).get_member(interaction.user.id)
-            if role == True:
-                if role.members.__contains__(member):
-                    await member.remove_roles(role)
-                    await interaction.response.send_message("Removed \""+role.name()+"\" Role", ephemeral=True)
-                else:
-                    await member.add_roles(role)
-                    await interaction.response.send_message("You have been given the \""+role.name()+"\" Role", ephemeral=True)
-
-    select.callback = timezoneCallback
-    select2.callback = timezoneCallback
-    view=View()
-    view.add_item(select)
-    view.add_item(select2)
-    await client.get_channel(1043016204278829066).send(content='Select the Option for your respective *Time Zone*',embed=discord.Embed(title='Time Zone Help', description='Calculate the amount of hours since Jan 1st 1970\n\n<t:0>', color=discord.Color.green()),view=view)
+#     select.callback = timezoneCallback
+#     select2.callback = timezoneCallback
+#     view=View()
+#     view.add_item(select)
+#     view.add_item(select2)
+#     await client.get_channel(1043016204278829066).send(content='Select the Option for your respective *Time Zone*',embed=discord.Embed(title='Time Zone Help', description='Calculate the amount of hours since Jan 1st 1970\n\n<t:0>', color=discord.Color.green()),view=view)
 
 
 # Activate Bot
@@ -277,28 +282,38 @@ class aclient(discord.Client):
         if 'debug' in os.listdir('./'):
             await client.change_presence(activity=discord.Game(name="DEBUG MODE"))
             print('Bot Presence changed to \"Playing DEBUG MODE\"')
-            await client.get_channel(1061732002275016745).send(embed=discord.Embed(title='Online Status', description='Bitey Frank Online Since <t:'+str(int(time.time()))+':R> <@&1065773538281259009>', color=discord.Color.green()))
+            await client.get_channel(1061732002275016745).send(embed=discord.Embed(
+                title='Online Status',
+                description=f'Bitey Frank Online Since <t:{str(int(time.time()))}:R> <@&1065773538281259009>',
+                color=discord.Color.green()
+                ))
         else:
             await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="my stinky poos"))
             print('Bot Presence changed to \"Watching my stinky poos\"')
-            await client.get_channel(1061732002275016745).send(embed=discord.Embed(title='Online Status', description='Bitey Frank Online Since <t:'+str(int(time.time()))+':R>', color=discord.Color.green()))
+            await client.get_channel(1061732002275016745).send(embed=discord.Embed(
+                title='Online Status',
+                description=f'Bitey Frank Online Since <t:{str(int(time.time()))}:R>',
+                color=discord.Color.green()
+                ))
 
         ### CONTRIBUTERS, If you see this would you be able to make this loop every 10 minutes? ###
         await client.get_channel(1043016204278829066).purge()
         await sendButtonPingRoles()
         await sendButtonTonaRoles()
-        await sendDropdownTZRoles()
+        # await sendDropdownTZRoles()
         ###########################################################################################
-
-
 
 client = aclient()
 
 for frankJpeg in os.listdir('beajpeg-assets'):
     if frankJpeg.endswith(('jpg','jpeg','png','webp','gif')):
-        frankjpegs.append('beajpeg-assets/'+frankJpeg)
+        frankjpegs.append(f'beajpeg-assets/{frankJpeg}')
     else:
-        client.get_channel('1061732002275016745').send(f'Warning, file \"{frankJpeg}\" is not a supported Frank JPEG')
+        client.get_channel(
+            '1061732002275016745'
+            ).send(
+                f'Warning, file \"{frankJpeg}\" is not a supported Frank JPEG'
+                )
 
 
 @client.event
@@ -319,40 +334,34 @@ async def on_member_remove(member):
 
 tree = app_commands.CommandTree(client)
 
-#@tree.command(name = "test", description="test", guild=discord.Object(id=1030635475528056872))
-#async def self(Interaction:discord.Interaction):
-#    await Interaction.response.send_message('I say nothing')
-
-#@tree.command(name="buttontest", description="test the button",guild=discord.Object(id=1030635475528056872))
-#async def self(Interaction:discord.Interaction):
-
-    #button=Button(label="Click Me!", style=discord.ButtonStyle.green, emoji="<:frank3:1040422477433675857>")
-
-    #async def button_callback(interaction_):
-    #   await interaction_.response.send_message("Why did you click me 😭")
-
-    #button.callback=button_callback
-
-    #view=View()
-    #view.add_item(button)
-    #await Interaction.response.send_message("Button", view=view)
-
-@tree.command(name="beajpeg",description="Make frank be a .jpeg",guild=discord.Object(id=1030635475528056872))
+@tree.command(
+    name="beajpeg",
+    description="Make frank be a .jpeg",
+    guild=discord.Object(id=1030635475528056872)
+    )
 async def self(Interaction:discord.Interaction):
     await Interaction.response.send_message(file=discord.File(random.choice(frankjpegs)))
     print('Ran /beajpeg')
 
-@tree.command(name='frankjpeg',description='Choose a specific frank .jpeg (out of 0 to ' + str(len(frankjpegs)-1) + ')',guild=discord.Object(id=1030635475528056872))
+@tree.command(
+    name='frankjpeg',
+    description=f'Choose a specific frank .jpeg (out of 0 to {str(len(frankjpegs)-1)})',
+    guild=discord.Object(id=1030635475528056872)
+    )
 async def self(Interaction:discord.Interaction, option: int):
     await Interaction.response.send_message(file=discord.File(frankjpegs[option]))
     print('Ran /frankjpeg')
 
-@tree.command(name='listfrankjpegs',description='List the Frank .jpegs',guild=discord.Object(id=1030635475528056872))
+@tree.command(
+    name='listfrankjpegs',
+    description='List the Frank .jpegs',
+    guild=discord.Object(id=1030635475528056872)
+    )
 async def self(Interaction:discord.Interaction):
     message='Frank jpegs:'
     id=0
     for jpegName in frankjpegs:
-        message+='\n*'+str(id)+'*: **__'+jpegName+'__**'
+        message+=f'\n*{str(id)}*: **__{jpegName[15:]}__**'
         id+=1
     await Interaction.response.send_message(message)
     print('Ran /listfrankjpegs')
@@ -360,7 +369,10 @@ async def self(Interaction:discord.Interaction):
 
 # Polling
 
-@tree.command(name='poll',description='Make a poll',guild=discord.Object(id=1030635475528056872))
+@tree.command(
+    name='poll',
+    description='Make a poll',
+    guild=discord.Object(id=1030635475528056872))
 async def embed(Interaction:discord.Interaction, question:str, option1: str, option2: str, option3: str=None, option4: str=None, option5: str=None, option6: str=None, option7: str=None, option8: str=None, option9: str=None, option10: str=None):
     await Interaction.response.send_message('Creating Poll',ephemeral=True)
     description='1️⃣ '+option1+'\n\n2️⃣ '+option2
@@ -382,10 +394,16 @@ async def embed(Interaction:discord.Interaction, question:str, option1: str, opt
     if option10 != None:
         description+='\n\n🔟 '+option10
 
-    embed=discord.Embed(title=question, description=description, color=discord.Color.green())
-    embed.set_author(name=Interaction.user.name,icon_url=Interaction.user.avatar)
-    channel=Interaction.channel_id
-    poll= await client.get_channel(channel).send(embed=embed)
+    poll= await client.get_channel(Interaction.channel_id).send(
+        embed=discord.Embed(
+            title=question,
+            description=description,
+            color=discord.Color.green()
+            ).set_author(
+                name=Interaction.user.name,
+                icon_url=Interaction.user.avatar
+            ))
+
     await poll.add_reaction('1️⃣')
     await poll.add_reaction('2️⃣')
     if option3 != None:
@@ -406,44 +424,48 @@ async def embed(Interaction:discord.Interaction, question:str, option1: str, opt
         await poll.add_reaction('🔟')
 
 
-@tree.command(name='whoreacted',description='Get a list of who reacted using what',guild=discord.Object(id=1030635475528056872))
+@tree.command(
+    name='whoreacted',
+    description='Get a list of who reacted using what',
+    guild=discord.Object(id=1030635475528056872))
 async def self(Interaction:discord.Interaction, messageid:str, poll:bool):
     await Interaction.response.send_message('Gathering...')
     channel=Interaction.channel
-    message=await channel.fetch_message(int(messageid))
+    message=await Interaction.channel.fetch_message(int(messageid))
     users=list()
     for msgreaction in message.reactions:
-        #print(msgreaction)
         async for user in msgreaction.users():
-            #print(user)
-            thing=str(msgreaction)+' '+str(user)
-            users.append(str(thing))
+            users.append(f'{str(msgreaction)} {str(user)}')
     users.sort()
-    reeeee=''
-    for one in users:
+    result=''
+    for user in users:
         if poll==True:
-            if one.endswith('Bitey Frank#4533') == False:
+            if user.endswith('Bitey Frank#4533') == False:
 
-                reeeee+=one+'\n'
+                result+=user+'\n'
         else:
-            reeeee+=one+'\n'
-    embed=discord.Embed(title='Who reacted to \"'+str(messageid)+'\"', description=reeeee, color=discord.Color.green())
-    embed.set_author(name=Interaction.user.name,icon_url=Interaction.user.avatar)
-    await channel.send(embed=embed)
+            result+=user+'\n'
+
+    await channel.send(embed=discord.Embed(
+        title='Who reacted to \"'+str(messageid)+'\"',
+        description=result,
+        color=discord.Color.green()
+        ).set_author(
+            name=Interaction.user.name,
+            icon_url=Interaction.user.avatar))
 
 
-@tree.command(name='polltotal',description='Get a tally of a poll',guild=discord.Object(id=1030635475528056872))
+@tree.command(
+    name='polltotal',
+    description='Get a tally of a poll',
+    guild=discord.Object(id=1030635475528056872)
+    )
 async def self(Interaction:discord.Interaction,messageid:str):
     await Interaction.response.send_message('Calculating...')
-    author=Interaction.user.name
-    authorIcon=Interaction.user.avatar
-    channel=Interaction.channel
-    message=await channel.fetch_message(int(messageid))
+    message=await Interaction.channel.fetch_message(int(messageid))
     users=list()
     for msgreaction in message.reactions:
-        #print(msgreaction)
         async for user in msgreaction.users():
-            #print(user)
             thing=str(msgreaction)+' '+str(user)
             users.append(str(thing))
 
@@ -462,8 +484,8 @@ async def self(Interaction:discord.Interaction,messageid:str):
     eightPollers=-1
     ninePollers=-1
     tenPollers=-1
-    #pollEmbed=discord.Embed.copy(message)
-    msg="""Poll: '+str(pollEmbed.title)+'\n'+str(pollEmbed.description)+'\n\n"""'Total Pollers: '+str(totalPollers)+'\n\n'
+
+    msg=f'Poll: {str(message.embeds[0].title)}\n\n{str(message.embeds[0].description)}\n\n\nTotal Pollers: {str(totalPollers)}\n\n'
 
     for user in users:
         if user.startswith('1️⃣') == True:
@@ -492,56 +514,111 @@ async def self(Interaction:discord.Interaction,messageid:str):
 
 
     onePollersPercentage=float(onePollers/totalPollers)
+
     msg+='1️⃣ *'+str(round(onePollersPercentage*100,2))+'%* **('+str(onePollers)+')\n\n**'
+
     twoPollersPercentage=float(twoPollers/totalPollers)
+
     msg+='2️⃣ *'+str(round(twoPollersPercentage*100,2))+'%* **('+str(twoPollers)+')\n\n**'
-    if users.count('3️⃣') >= 0:
+
+    if users.count('3️⃣') != 0:
         threePollersPercentage=float(threePollers/totalPollers)
         msg+='3️⃣ *'+str(round(threePollersPercentage*100,2))+'%* **('+str(threePollers)+')\n\n**'
-    if users.count('4️⃣') >= 0:
+
+    if users.count('4️⃣') != 0:
         fourPollersPercentage=float(fourPollers/totalPollers)
         msg+='4️⃣ *'+str(round(fourPollersPercentage*100,2))+'%* **('+str(fourPollers)+')\n\n**'
-    if users.count('5️⃣') >= 0:
+
+    if users.count('5️⃣') != 0:
         fivePollersPercentage=float(fivePollers/totalPollers)
         msg+='5️⃣ *'+str(round(fivePollersPercentage*100,2))+'%* **('+str(fivePollers)+')\n\n**'
-    if users.count('6️⃣') >= 0:
+
+    if users.count('6️⃣') != 0:
         sixPollersPercentage=float(sixPollers/totalPollers)
         msg+='6️⃣ *'+str(round(sixPollersPercentage*100,2))+'%* **('+str(sixPollers)+')\n\n**'
-    if users.count('7️⃣') >= 0:
+
+    if users.count('7️⃣') != 0:
         sevenPollersPercentage=float(sevenPollers/totalPollers)
         msg+='7️⃣ *'+str(round(sevenPollersPercentage*100,2))+'%* **('+str(sevenPollers)+')\n\n**'
-    if users.count('8️⃣') >= 0:
+
+    if users.count('8️⃣') != 0:
         eightPollersPercentage=float(eightPollers/totalPollers)
         msg+='8️⃣ *'+str(round(eightPollersPercentage*100,2))+'%* **('+str(eightPollers)+')\n\n**'
-    if users.count('9️⃣') >= 0:
+
+    if users.count('9️⃣') != 0:
         ninePollersPercentage=float(ninePollers/totalPollers)
         msg+='9️⃣ *'+str(round(ninePollersPercentage*100,2))+'%* **('+str(ninePollers)+')\n\n**'
-    if users.count('🔟') >= 0:
+
+    if users.count('🔟') != 0:
         tenPollersPercentage=float(tenPollers/totalPollers)
         msg+='🔟 *'+str(round(tenPollersPercentage*100,2))+'%* **('+str(tenPollers)+')\n\n**'
-    embed=discord.Embed(title='Tallied Votes',description=msg,color=discord.Color.green())
-    embed.set_author(name=author,icon_url=authorIcon)
-    await channel.send(embed=embed)
 
-@tree.command(name='admin1',description='admin1',guild=discord.Object(id=1030635475528056872))
-async def self(Interaction:discord.Interaction,str1:str,str2:str,str3:str):
-    # role=discord.utils.find(lambda m: m.name == 'waste management', discord.Guild.roles)
-    # userRoles=Interaction.user.roles
-    # if role in userRoles:
-    await Interaction.response.send_message('Creating Embed...',ephemeral=True)
-    embed=discord.Embed(title=str1,url=str2,description=str3,color=discord.Colour.from_rgb(240,50,225))
-    await Interaction.channel.send(embed=embed)
-    # else:
-    #     await Interaction.response.send_message('You lack permissions')
+    await Interaction.channel.send(
+        embed=discord.Embed(
+            title='Tallied Votes',
+            description=msg,
+            color=discord.Color.green()
+            ).set_author(
+                name=Interaction.user.name,
+                icon_url=Interaction.user.avatar
+            ))
 
-#@tree.command()
+@tree.command(
+    name='whowon',
+    description='who won?',
+    guild=discord.Object(id=1030635475528056872)
+)
+async def self(Interaction:discord.Interaction,magicdiepollid:str,doublenothingpollid:str,magicnumberasemoji:str,doublenumberasemoji:str):
+    await Interaction.response.send_message('Gathering...')
+    channel=Interaction.channel
+    message=await Interaction.channel.fetch_message(int(magicdiepollid))
+    Magicusers=list()
+    for msgreaction in message.reactions:
+        async for user in msgreaction.users():
+            Magicusers.append(f'{str(msgreaction)} {str(user)}')
+    Magicusers.sort()
+    result=''
+    for user in Magicusers:
+            if user.endswith('Bitey Frank#4533') == False:
+                if user.startswith(magicnumberasemoji):
+                    result+=user+'\n'
+
+    await channel.send(embed=discord.Embed(
+        title='Who Won?',
+        description=result,
+        color=discord.Color.green()
+        ).set_author(
+            name=Interaction.user.name,
+            icon_url=Interaction.user.avatar))
+
+    message=await Interaction.channel.fetch_message(int(doublenothingpollid))
+    Doubleusers=list()
+    for msgreaction in message.reactions:
+        async for user in msgreaction.users():
+            Doubleusers.append(f'{str(msgreaction)} {str(user)}')
+    Doubleusers.sort()
+    result=''
+    for user in Doubleusers:
+            if user.endswith('Bitey Frank#4533') == False:
+                if user.startswith(doublenumberasemoji):
+                    result+=user+'\n'
+
+    await channel.send(embed=discord.Embed(
+        title='Who Won? (double)',
+        description=result,
+        color=discord.Color.green()
+        ).set_author(
+            name=Interaction.user.name,
+            icon_url=Interaction.user.avatar))
+
+@tree.command(
+    name="reboot",
+    description="Admin Only Command: Reboot Bitey Frank",
+    guild=discord.Object(id=1030635475528056872)
+)
+async def self(Interaction:discord.Interaction):
+    await Interaction.response.send_message("Rebooting...")
+    sys.exit()
 
 
-#React Roles
-
-
-#@tree.command(name="activatereactroles", description="Send the react role messages",guild=discord.Object(id=1030635475528056872))
-#@has_permissions(manage_roles=True)
-#async def self(Interaction:discord.Interaction):
-#    await Interaction.response.send_message('success')
 client.run(TOKEN)
