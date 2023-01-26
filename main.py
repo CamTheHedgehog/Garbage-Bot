@@ -333,4 +333,5 @@ async def reboot(Interaction: discord.Interaction):
     sys.exit()
 
 
-client.run(consts.TOKEN)
+if __name__ == "__main__":
+    client.run(consts.TOKEN)
