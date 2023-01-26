@@ -289,7 +289,7 @@ tree = app_commands.CommandTree(client)
     description="Make frank be a .jpeg",
     guild=discord.Object(id=consts.GUILD)
 )
-async def self(Interaction: discord.Interaction):
+async def be_a_jpeg(Interaction: discord.Interaction):
     await Interaction.response.send_message(file=discord.File(random.choice(frank_jpegs)))
     print('Ran /beajpeg')
 
@@ -299,7 +299,7 @@ async def self(Interaction: discord.Interaction):
     description=f'Choose a specific frank .jpeg (out of 0 to {str(len(frank_jpegs)-1)})',
     guild=discord.Object(id=consts.GUILD)
 )
-async def self(Interaction: discord.Interaction, option: int):
+async def frank_jpeg(Interaction: discord.Interaction, option: int):
     await Interaction.response.send_message(file=discord.File(frank_jpegs[option]))
     print('Ran /frankjpeg')
 
@@ -309,7 +309,7 @@ async def self(Interaction: discord.Interaction, option: int):
     description='List the Frank .jpegs',
     guild=discord.Object(id=consts.GUILD)
 )
-async def self(Interaction: discord.Interaction):
+async def list_frank_jpegs(Interaction: discord.Interaction):
     message = 'Frank jpegs:'
     id = 0
     for jpegName in frank_jpegs:
@@ -328,7 +328,7 @@ create_poll_commands(client, tree)
     description="Admin Only Command: Reboot Bitey Frank",
     guild=discord.Object(id=consts.GUILD)
 )
-async def self(Interaction: discord.Interaction):
+async def reboot(Interaction: discord.Interaction):
     await Interaction.response.send_message("Rebooting...")
     sys.exit()
 
