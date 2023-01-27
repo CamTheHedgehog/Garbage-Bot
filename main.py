@@ -27,6 +27,14 @@ frankJoinEmotes =[
     '<:jpeg:1042214971460829326>'
     ]
 frankjpegs = []
+numericEmojiMap={
+    "1": "1️⃣",
+    "2": "2️⃣",
+    "3": "3️⃣",
+    "4": "4️⃣",
+    "5": "5️⃣"
+}
+
 async def sendButtonPingRoles():
     GeneralAnnouncements=Button(
         label="General Announcements",
@@ -698,7 +706,7 @@ async def self(Interaction:discord.Interaction,messageid:str):
     description='who won?',
     guild=discord.Object(id=1030635475528056872)
 )
-async def self(Interaction:discord.Interaction,magicdiepollid:str,doublenothingpollid:str,magicnumberasemoji:str,doublenumberasemoji:str):
+async def self(Interaction:discord.Interaction,magicdiepollid:str,doublenothingpollid:str,magicnumber:int,doublenumber:int):
     await Interaction.response.send_message('Gathering...')
     channel=Interaction.channel
     message=await Interaction.channel.fetch_message(int(magicdiepollid))
@@ -708,10 +716,16 @@ async def self(Interaction:discord.Interaction,magicdiepollid:str,doublenothingp
             Magicusers.append(f'{str(msgreaction)} {str(user)}')
     Magicusers.sort()
     result=''
-    for user in Magicusers:
-            if user.endswith('Bitey Frank#4533') == False:
-                if user.startswith(magicnumberasemoji):
-                    result+=user+'\n'
+    if magicnumber > 0:
+        if len(Magicusers) > 0:
+            for user in Magicusers:
+                    if user.endswith('Bitey Frank#4533') == False:
+                        if user.startswith(numericEmojiMap[str(magicnumber)]):
+                            result+=user+'\n'
+        else:
+            result='Nobody'
+    else:
+        result='Nobody'
 
     await channel.send(embed=discord.Embed(
         title='Who Won?',
@@ -728,10 +742,16 @@ async def self(Interaction:discord.Interaction,magicdiepollid:str,doublenothingp
             Doubleusers.append(f'{str(msgreaction)} {str(user)}')
     Doubleusers.sort()
     result=''
-    for user in Doubleusers:
-            if user.endswith('Bitey Frank#4533') == False:
-                if user.startswith(doublenumberasemoji):
-                    result+=user+'\n'
+    if doublenumber > 0:
+        if len(Doubleusers) > 0:
+            for user in Doubleusers:
+                    if user.endswith('Bitey Frank#4533') == False:
+                        if user.startswith(numericEmojiMap[str(doublenumber)]):
+                            result+=user+'\n'
+        else:
+            result='Nobody'
+    else:
+        result='Nobody'
 
     await channel.send(embed=discord.Embed(
         title='Who Won? (double)',
