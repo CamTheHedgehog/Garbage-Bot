@@ -19,7 +19,8 @@ for frankJpeg in os.listdir('beajpeg-assets'):
 for command in os.listdir('commands'):
     if command.endswith('py'):
         if command.endswith('__init__.py') == False:
-            exec(f'{command[:-3]}.import_command()')
+            if command.endswith('template.py') == False:
+                exec(f'{command[:-3]}.import_command()')
 
 set_events()
 
